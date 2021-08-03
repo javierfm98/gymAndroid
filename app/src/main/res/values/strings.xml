@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">Gym</string>
+    <string name="label_login">Iniciar sesión</string>
+    <string name="label_email">Correo electrónico</string>
+    <string name="label_password">Contraseña</string>
+    <string name="button_login">Entrar</string>
+    <string name="label_reservas">RESERVAS</string>
+    <string name="label_mi_cuerpo">MI CUERPO</string>
+    <string name="label_mis_pagos">MIS PAGOS</string>
+    <string name="label_perfil">PERFIL</string>
+    <string name="label_salir">SALIR</string>
+    <string name="navigation_drawer_open">Open</string>
+    <string name="navigation_drawer_close">Close</string>
+    <string name="title_activity_main2">MainActivity</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="label_clases">CLASES</string>
+</resources>

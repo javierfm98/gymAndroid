@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_menu"
+            android:title="Menú"
+            android:icon="@drawable/ic_home"/>
+
+        <item
+            android:id="@+id/nav_calendar"
+            android:title="Calendario"
+            android:icon="@drawable/ic_calendar"/>
+
+
+
+        <item
+            android:id="@+id/nav_event"
+            android:title="Event"
+            android:icon="@drawable/ic_person_pin"/>
+
+    </group>
+
+    <item android:title="Social">
+
+        <menu>
+
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_notification"
+                    android:title="Notification"
+                    android:icon="@drawable/ic_person_pin"/>
+
+                <item
+                    android:id="@+id/nav_contact"
+                    android:title="Contact"
+                    android:icon="@drawable/ic_person_pin"/>
+            </group>
+
+        </menu>
+
+
+    </item>
+
+</menu>
