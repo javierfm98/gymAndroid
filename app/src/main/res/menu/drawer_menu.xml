@@ -10,32 +10,37 @@
 
         <item
             android:id="@+id/nav_calendar"
-            android:title="Calendario"
+            android:title="Clases"
             android:icon="@drawable/ic_calendar"/>
 
 
 
         <item
-            android:id="@+id/nav_event"
-            android:title="Event"
-            android:icon="@drawable/ic_person_pin"/>
+            android:id="@+id/nav_reservation"
+            android:title="Reservas"
+            android:icon="@drawable/ic_schedule"/>
+
+        <item
+            android:id="@+id/nav_subscription"
+            android:title="Pagos"
+            android:icon="@drawable/ic_payment"/>
 
     </group>
 
-    <item android:title="Social">
+    <item android:title="Personal">
 
         <menu>
 
             <group android:checkableBehavior="single">
                 <item
-                    android:id="@+id/nav_notification"
-                    android:title="Notification"
+                    android:id="@+id/nav_profile"
+                    android:title="Perfil"
                     android:icon="@drawable/ic_person_pin"/>
 
                 <item
-                    android:id="@+id/nav_contact"
-                    android:title="Contact"
-                    android:icon="@drawable/ic_person_pin"/>
+                    android:id="@+id/nav_logout"
+                    android:title="Salir"
+                    android:icon="@drawable/ic_exit"/>
             </group>
 
         </menu>
