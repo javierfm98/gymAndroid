@@ -26,7 +26,7 @@ class TrainingAdapter(private val trainings: ArrayList<Training>, private  val l
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         fun bind(training: Training , listener: RecyclerTrainingListener) = with(itemView){
             val totalClient = training.enroll.toString() + "/" + training.capacity.toString()
-            textViewHour.text = training.timeFormat
+            textViewHour.text = training.trainingTime
             textViewEnroll.text = totalClient
 
             //Clicks Events

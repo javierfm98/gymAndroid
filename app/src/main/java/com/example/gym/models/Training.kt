@@ -8,4 +8,4 @@ data class Training(val id: Int,
                     val capacity: Int,
                     val enroll: Int,
                     val description: String,
-                    @SerializedName("time_format") val timeFormat: String)
+                    @SerializedName("training_time") val trainingTime: String)
