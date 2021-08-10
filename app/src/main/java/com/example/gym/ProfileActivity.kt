@@ -35,29 +35,8 @@ class ProfileActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         setTitle("Perfil")
 
-        loadPrueba()
-
-
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
-    }
-
-    private fun loadPrueba() {
-        val call = apiService.getSpecialties()
-        call.enqueue(object: Callback<ArrayList<User>> {
-            override fun onResponse(call: Call<ArrayList<User>>, response: Response<ArrayList<User>>) {
-                    if(response.isSuccessful){ //Verdadreo [200 ... 300]
-                        val prueba = response.body()
-                        toast(prueba.toString())
-                    }
-            }
-
-            override fun onFailure(call: Call<ArrayList<User>>, t: Throwable) {
-                toast("Ocurrio un error")
-                finish()
-            }
-
-        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

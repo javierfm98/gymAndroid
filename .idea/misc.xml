@@ -5,7 +5,9 @@
       <map>
         <entry key="..\:/android/gym/app/src/main/res/layout/activity_main.xml" value="0.3052536231884058" />
         <entry key="..\:/android/gym/app/src/main/res/layout/fragment_reservation.xml" value="0.29393115942028986" />
+        <entry key="..\:/android/gym/app/src/main/res/layout/fragment_trainings.xml" value="0.26875" />
         <entry key="..\:/android/gym/app/src/main/res/layout/nav_header.xml" value="0.29393115942028986" />
+        <entry key="..\:/android/gym/app/src/main/res/layout/recycler_training.xml" value="0.2916666666666667" />
       </map>
     </option>
   </component>

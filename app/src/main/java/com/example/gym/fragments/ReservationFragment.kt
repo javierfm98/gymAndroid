@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.fragment_trainings.view.*
 
 class ReservationFragment : Fragment() {
 
-    private  val list: ArrayList<Training> by lazy { getTrainings() }
+
 
     private lateinit var recycler: RecyclerView
     private lateinit var adapter: ReservationAdapter
@@ -50,18 +50,12 @@ class ReservationFragment : Fragment() {
     private fun setRecyclerView() {
         recycler.setHasFixedSize(true)
         recycler.layoutManager = layoutManager
-        adapter = (ReservationAdapter(list))
+        //adapter = (ReservationAdapter(list))
 
         recycler.adapter = adapter
     }
 
-    private fun getTrainings(): ArrayList<Training>{
-        return object: ArrayList<Training>(){
-            init{
-                add(Training(1,1,"05/08/2021" ,"11:00","12:00" , 20 , 2 , "Prueba"))
-            }
-        }
-    }
+
 
 
 }

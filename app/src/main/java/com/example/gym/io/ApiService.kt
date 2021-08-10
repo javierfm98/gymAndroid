@@ -1,6 +1,7 @@
 package com.example.gym.io
 
 import com.example.gym.io.response.LoginResponse
+import com.example.gym.models.Training
 import com.example.gym.models.User
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -14,14 +15,14 @@ import retrofit2.http.Query
 
 interface ApiService {
 
-    @GET("prueba")
-    fun getSpecialties(): Call<ArrayList<User>>
-
     @POST("login")
     fun postLogin(@Query("email") email: String , @Query("password") password: String): Call<LoginResponse>
 
     @POST("logout")
     fun postLogout(@Header("Authorization") authHeader: String): Call<Void>
+
+    @GET("trainings")
+    fun getTrainings(@Query("day") day: String): Call<ArrayList<Training>>
 
 
     companion object Factory{

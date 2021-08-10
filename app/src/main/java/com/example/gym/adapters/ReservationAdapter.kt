@@ -21,9 +21,8 @@ class ReservationAdapter(private val trainings: List<Training>): RecyclerView.Ad
 
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         fun bind(training: Training ) = with(itemView){
-            val finalHour = training.start + " - " + training.end
-            texViewHourReservation.text = finalHour
-            textViewDay.text = training.date
+            texViewHourReservation.text = training.timeFormat
+            textViewDay.text = training.day
         }
 
     }

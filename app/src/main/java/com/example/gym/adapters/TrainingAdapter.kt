@@ -8,8 +8,11 @@ import com.example.gym.inflate
 import com.example.gym.listeners.RecyclerTrainingListener
 import com.example.gym.models.Training
 import kotlinx.android.synthetic.main.recycler_training.view.*
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
-class TrainingAdapter(private val trainings: List<Training>, private  val listener: RecyclerTrainingListener): RecyclerView.Adapter<TrainingAdapter.ViewHolder>() {
+class TrainingAdapter(private val trainings: ArrayList<Training>, private  val listener: RecyclerTrainingListener): RecyclerView.Adapter<TrainingAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder = ViewHolder(parent.inflate(R.layout.recycler_training))
 
@@ -22,9 +25,8 @@ class TrainingAdapter(private val trainings: List<Training>, private  val listen
 
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         fun bind(training: Training , listener: RecyclerTrainingListener) = with(itemView){
-            val finalHour = training.start + " - " + training.end
             val totalClient = training.enroll.toString() + "/" + training.capacity.toString()
-            textViewHour.text = finalHour
+            textViewHour.text = training.timeFormat
             textViewEnroll.text = totalClient
 
             //Clicks Events
