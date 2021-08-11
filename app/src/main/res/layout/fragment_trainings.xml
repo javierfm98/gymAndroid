@@ -20,17 +20,19 @@
             app:textColorSelected="@color/white" />
 
         <TextView
-            android:id="@+id/textViewPrueba"
+            android:id="@+id/textViewEmpty"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/calendarView"
-            tools:text="2021-08-05" />
+            android:gravity="center"
+            android:layout_marginTop="8dp"
+            tools:text="No hay entrenos disponibles" />
 
-         <androidx.recyclerview.widget.RecyclerView
-             android:id="@+id/recyclerView"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             android:layout_below="@+id/textViewPrueba"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/textViewEmpty" />
 
 
     </RelativeLayout>

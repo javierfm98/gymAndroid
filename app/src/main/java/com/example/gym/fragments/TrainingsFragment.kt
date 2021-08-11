@@ -36,7 +36,6 @@ import kotlin.collections.ArrayList
 
 class TrainingsFragment : Fragment() {
 
-   // private  val list: ArrayList<Training> by lazy { getTrainings() }
 
     private lateinit var recycler: RecyclerView
     private lateinit var adapter: TrainingAdapter
@@ -59,7 +58,7 @@ class TrainingsFragment : Fragment() {
         val rootView = inflater.inflate(R.layout.fragment_trainings, container, false)
 
         recycler = rootView.recyclerView as RecyclerView
-       // setRecyclerView()
+
 
         // Calendar horizontal
         val date = System.currentTimeMillis()
@@ -106,11 +105,15 @@ class TrainingsFragment : Fragment() {
                 if(response.isSuccessful){
                     val training = response.body()
                     training?.let {
-                        setRecyclerView(training)
+                        if(training.size > 0){
+                            textViewEmpty.text = ""
+                        }else{
+                            textViewEmpty.text = "No hay entrenos disponibles"
+                        }
+                            setRecyclerView(training)
                     }
                 }
             }
-
             override fun onFailure(call: Call<ArrayList<Training>>, t: Throwable) {
                 activity?.toast(t.localizedMessage)
             }
@@ -121,34 +124,21 @@ class TrainingsFragment : Fragment() {
     private fun setRecyclerView(training: ArrayList<Training>) {
         recycler.setHasFixedSize(true)
         recycler.layoutManager = layoutManager
-        adapter = (TrainingAdapter(training,object :RecyclerTrainingListener{
-            override fun onClick(training: Training, position: Int) {
-                activity?.toast("Ver!!")
-            }
 
-            override fun onReservation(training: Training, position: Int) {
-                //activity?.toast("Reserva!!")
-                buttonReservation.text = "RESERVADO"
-                buttonReservation.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10F)
-                buttonReservation.setBackgroundColor(Color.parseColor("#a1e197"))
-                textViewEnroll.text = "2/20"
-            }
+            adapter = (TrainingAdapter(training,object :RecyclerTrainingListener{
+                override fun onClick(training: Training, position: Int) {
+                    activity?.toast("Ver!!")
+                }
 
-        }))
+                override fun onReservation(training: Training, position: Int) {
+                }
 
-        recycler.adapter = adapter
+            }))
+
+            recycler.adapter = adapter
+
+
     }
-
-
-
-
-  /*  private fun getTrainings(): ArrayList<Training>{
-        return object: ArrayList<Training>(){
-            init{
-                add(Training(1,1,"05/08/2021" ,"11:00","12:00" , 20 , 1 , "Prueba"))
-            }
-        }
-    }*/
 
 
 }
