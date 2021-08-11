@@ -86,7 +86,9 @@ class TrainingsFragment : Fragment() {
                 //do something
                 date?.let {
                     val dateCurrent = formatDate.format((it.time))
-                    textViewPrueba.text = dateCurrent
+                    //textViewPrueba.text = dateCurrent
+                    getTrainings(dateCurrent)
+                    adapter.notifyDataSetChanged()
                 }
                // setRecyclerView2()
             }

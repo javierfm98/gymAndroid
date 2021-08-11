@@ -26,7 +26,7 @@ interface ApiService {
 
 
     companion object Factory{
-        private const val BASE_URL ="https://gym-javierelcachas640155.codeanyapp.com/api/"
+        private const val BASE_URL ="http://64.225.72.59/api/"
 
         fun create(): ApiService {
 
