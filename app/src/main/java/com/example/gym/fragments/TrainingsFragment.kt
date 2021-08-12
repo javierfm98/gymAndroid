@@ -24,6 +24,7 @@ import kotlinx.android.synthetic.main.activity_navigation.*
 import kotlinx.android.synthetic.main.fragment_trainings.*
 import kotlinx.android.synthetic.main.fragment_trainings.view.*
 import kotlinx.android.synthetic.main.recycler_training.*
+import kotlinx.android.synthetic.main.recycler_training.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -67,7 +68,6 @@ class TrainingsFragment : Fragment() {
 
         getTrainings(dateString)
 
-        //rootView.textViewPrueba.text = dateString
 
         val startDate: Calendar = Calendar.getInstance()
         startDate.add(Calendar.MONTH, -1)
@@ -84,9 +84,9 @@ class TrainingsFragment : Fragment() {
             override fun onDateSelected(date: Calendar?, position: Int) {
                 //do something
                 date?.let {
-                    val dateCurrent = formatDate.format((it.time))
-                    //textViewPrueba.text = dateCurrent
-                    getTrainings(dateCurrent)
+                    val dateSelected = formatDate.format((it.time))
+
+                    getTrainings(dateSelected)
                     adapter.notifyDataSetChanged()
                 }
                // setRecyclerView2()
@@ -127,10 +127,13 @@ class TrainingsFragment : Fragment() {
 
             adapter = (TrainingAdapter(training,object :RecyclerTrainingListener{
                 override fun onClick(training: Training, position: Int) {
+
                     activity?.toast("Ver!!")
                 }
 
                 override fun onReservation(training: Training, position: Int) {
+                  //  registerTraining(training.id)
+                   activity?.toast("Reservar")
                 }
 
             }))
@@ -139,6 +142,22 @@ class TrainingsFragment : Fragment() {
 
 
     }
+
+   /* private fun registerTraining(trainingId: Int) {
+        val call = apiService.reservation(trainingId)
+        call.enqueue(object: Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if(response.isSuccessful){
+
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                activity?.toast(t.localizedMessage)
+            }
+
+        })
+    }*/
 
 
 }

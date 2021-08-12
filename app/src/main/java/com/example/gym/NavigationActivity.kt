@@ -11,14 +11,25 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import com.example.gym.fragments.*
+import com.example.gym.io.ApiService
+import com.example.gym.util.CircleTransform
 import com.google.android.material.navigation.NavigationView
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_navigation.*
+import kotlinx.android.synthetic.main.nav_header.*
 import kotlinx.android.synthetic.main.nav_header.view.*
 import kotlinx.android.synthetic.main.toolbar.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class NavigationActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var toggle: ActionBarDrawerToggle
+
+    private val apiService: ApiService by lazy {
+        ApiService.create()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +41,18 @@ class NavigationActivity : AppCompatActivity(), NavigationView.OnNavigationItemS
 
         val header: View = nav_view.getHeaderView(0)
         val fullName = preferences.getString("name" , "") + " " + preferences.getString("surname" , "")
+        val urlPhoto = "http://64.225.72.59/img/"+preferences.getString("photo" , "")
         header.textViewHeaderName.text = fullName
+
+
+        Picasso.get()
+            .load(urlPhoto)
+            .fit()
+            .transform(CircleTransform())
+            .into(header.imageViewProfile)
+
+
+
 
         if(savedInstanceState == null){
             loadFragment(MenuFragment())
@@ -66,10 +88,51 @@ class NavigationActivity : AppCompatActivity(), NavigationView.OnNavigationItemS
                     val intent = Intent(this, ProfileActivity::class.java)
                     startActivity(intent)
             }
+            R.id.nav_logout -> performLogout()
         }
 
         drawer_layout.closeDrawers()
         return true
+    }
+
+    private fun performLogout() {
+        val preferences = getSharedPreferences("general" , Context.MODE_PRIVATE)
+        val jwt = preferences.getString("session" , "")
+        val call = apiService.postLogout("Bearer $jwt")
+        call.enqueue(object: Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                clearSessionPreferences()
+                clearUserPreferences()
+                val intent = Intent(this@NavigationActivity, MainActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                toast(t.localizedMessage)
+            }
+
+        })
+    }
+
+    private fun clearSessionPreferences() {
+        val preferences = getSharedPreferences("general" , Context.MODE_PRIVATE)
+        val editor = preferences.edit()
+        editor.putString("session" , "")
+        editor.apply()
+    }
+
+    private fun clearUserPreferences() {
+        val preferences = getSharedPreferences("userInfo" , Context.MODE_PRIVATE)
+        val editor = preferences.edit()
+        editor.putInt("id" , -1)
+        editor.putString("name" , "")
+        editor.putString("surname" , "")
+        editor.putString("phone", "")
+        editor.putString("username" , "")
+        editor.putString("email" , "")
+        editor.putString("photo" , "")
+        editor.apply()
     }
 
 /*

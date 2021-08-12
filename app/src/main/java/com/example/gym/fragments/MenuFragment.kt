@@ -103,6 +103,7 @@ class MenuFragment : Fragment()  {
         editor.putString("phone", "")
         editor.putString("username" , "")
         editor.putString("email" , "")
+        editor.putString("photo" , "")
         editor.apply()
     }
 

@@ -24,6 +24,10 @@ interface ApiService {
     @GET("trainings")
     fun getTrainings(@Query("day") day: String): Call<ArrayList<Training>>
 
+    @POST("trainings")
+    fun reservation( @Header("Authorization") authHeader: String,
+                     @Query("training") trainingId: Int): Call<Void>
+
 
     companion object Factory{
         private const val BASE_URL ="http://64.225.72.59/api/"
