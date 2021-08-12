@@ -11,12 +11,19 @@
         android:layout_height="match_parent"
         android:orientation="horizontal">
 
-
+        <TextView
+            android:id="@+id/textViewListReserves"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="8dp"
+            tools:text="No estás apuntado a ningún entreno" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewReservation"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_below="@id/textViewListReserves"/>
 
 
     </RelativeLayout>

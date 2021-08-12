@@ -12,7 +12,7 @@ import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import com.example.gym.fragments.*
 import com.example.gym.io.ApiService
-import com.example.gym.util.CircleTransform
+import com.example.gym.utils.CircleTransform
 import com.google.android.material.navigation.NavigationView
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_navigation.*

@@ -25,8 +25,11 @@ interface ApiService {
     fun getTrainings(@Query("day") day: String): Call<ArrayList<Training>>
 
     @POST("trainings")
-    fun reservation( @Header("Authorization") authHeader: String,
-                     @Query("training") trainingId: Int): Call<Void>
+    fun reservation(@Header("Authorization") authHeader: String,
+                    @Query("training") trainingId: Int): Call<Void>
+
+    @GET("trainings/reserves")
+    fun getReserves(@Header("Authorization") authHeader: String): Call<ArrayList<Training>>
 
 
     companion object Factory{

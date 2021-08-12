@@ -16,7 +16,7 @@
 
 
 
-package com.example.gym.util;
+package com.example.gym.utils;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;

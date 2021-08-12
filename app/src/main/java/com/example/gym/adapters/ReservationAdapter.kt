@@ -8,7 +8,7 @@ import com.example.gym.inflate
 import com.example.gym.models.Training
 import kotlinx.android.synthetic.main.recycler_reservation.view.*
 
-class ReservationAdapter(private val trainings: List<Training>): RecyclerView.Adapter<ReservationAdapter.ViewHolder>() {
+class ReservationAdapter(private val trainings: ArrayList<Training>): RecyclerView.Adapter<ReservationAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder = ViewHolder(parent.inflate(R.layout.recycler_reservation))
 
