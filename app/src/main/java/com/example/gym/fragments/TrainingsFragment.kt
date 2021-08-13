@@ -2,6 +2,7 @@ package com.example.gym.fragments
 
 
 
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.util.TypedValue
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.gym.R
 import com.example.gym.adapters.TrainingAdapter
 import com.example.gym.io.ApiService
+import com.example.gym.io.response.CheckResponse
 import com.example.gym.listeners.RecyclerTrainingListener
 import com.example.gym.models.Training
 import com.example.gym.toast
@@ -41,6 +43,8 @@ class TrainingsFragment : Fragment() {
     private lateinit var recycler: RecyclerView
     private lateinit var adapter: TrainingAdapter
     private val layoutManager by lazy { LinearLayoutManager(context) }
+    private  var jwt: String? = ""
+
 
     private val apiService: ApiService by lazy {
         ApiService.create()
@@ -60,6 +64,8 @@ class TrainingsFragment : Fragment() {
 
         recycler = rootView.recyclerView as RecyclerView
 
+        val preferences = rootView.context.getSharedPreferences("general" , Context.MODE_PRIVATE)
+        jwt = preferences.getString("session" , "")
 
         // Calendar horizontal
         val date = System.currentTimeMillis()
@@ -67,7 +73,7 @@ class TrainingsFragment : Fragment() {
         val dateString: String = formatDate.format(date)
 
         getTrainings(dateString)
-
+        checkReservations(dateString)
 
         val startDate: Calendar = Calendar.getInstance()
         startDate.add(Calendar.MONTH, -1)
@@ -88,6 +94,7 @@ class TrainingsFragment : Fragment() {
 
                     getTrainings(dateSelected)
                     adapter.notifyDataSetChanged()
+                    checkReservations(dateSelected)
                 }
                // setRecyclerView2()
             }
@@ -97,6 +104,8 @@ class TrainingsFragment : Fragment() {
 
         return rootView
     }
+
+
 
     private fun getTrainings( date: String) {
         val call = apiService.getTrainings(date)
@@ -128,12 +137,11 @@ class TrainingsFragment : Fragment() {
             adapter = (TrainingAdapter(training,object :RecyclerTrainingListener{
                 override fun onClick(training: Training, position: Int) {
 
-                    activity?.toast("Ver!!")
+                    activity?.toast("Ver!! ${training.id}")
                 }
 
                 override fun onReservation(training: Training, position: Int) {
-                  //  registerTraining(training.id)
-                   activity?.toast("Reservar")
+                    registerTraining(training.id)
                 }
 
             }))
@@ -143,12 +151,12 @@ class TrainingsFragment : Fragment() {
 
     }
 
-   /* private fun registerTraining(trainingId: Int) {
-        val call = apiService.reservation(trainingId)
+    private fun registerTraining(trainingId: Int) {
+        val call = apiService.reservation("Bearer $jwt",trainingId)
         call.enqueue(object: Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 if(response.isSuccessful){
-
+                    activity?.toast("Clase reservada")
                 }
             }
 
@@ -157,7 +165,30 @@ class TrainingsFragment : Fragment() {
             }
 
         })
-    }*/
+    }
+
+    private fun checkReservations(date: String) {
+        val call = apiService.checkReservation("Bearer $jwt" , date)
+        call.enqueue(object: Callback<CheckResponse> {
+            override fun onResponse(call: Call<CheckResponse>, response: Response<CheckResponse>) {
+                if(response.isSuccessful){
+                    val checkResponse = response.body()
+                    checkResponse?.let {
+                        if(checkResponse.success){
+                            activity?.toast("Apuntado ${checkResponse.training.id}")
+                        }else{
+                            activity?.toast("No hay reservas")
+                        }
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<CheckResponse>, t: Throwable) {
+                activity?.toast(t.localizedMessage)
+            }
+
+        } )
+    }
 
 
 }

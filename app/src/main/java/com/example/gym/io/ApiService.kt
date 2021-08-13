@@ -1,5 +1,6 @@
 package com.example.gym.io
 
+import com.example.gym.io.response.CheckResponse
 import com.example.gym.io.response.LoginResponse
 import com.example.gym.models.Training
 import com.example.gym.models.User
@@ -31,6 +32,9 @@ interface ApiService {
     @GET("trainings/reserves")
     fun getReserves(@Header("Authorization") authHeader: String): Call<ArrayList<Training>>
 
+    @GET("trainings/check")
+    fun checkReservation(@Header("Authorization") authHeader: String,
+                         @Query("date") date: String): Call<CheckResponse>
 
     companion object Factory{
         private const val BASE_URL ="http://64.225.72.59/api/"
