@@ -36,6 +36,9 @@ interface ApiService {
     fun checkReservation(@Header("Authorization") authHeader: String,
                          @Query("date") date: String): Call<CheckResponse>
 
+    @GET("user")
+    fun getUser(@Header("Authorization") authHeader: String): Call<User>
+
     companion object Factory{
         private const val BASE_URL ="http://64.225.72.59/api/"
 

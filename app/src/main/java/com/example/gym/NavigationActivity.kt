@@ -12,6 +12,7 @@ import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import com.example.gym.fragments.*
 import com.example.gym.io.ApiService
+import com.example.gym.models.User
 import com.example.gym.utils.CircleTransform
 import com.google.android.material.navigation.NavigationView
 import com.squareup.picasso.Picasso
@@ -36,7 +37,18 @@ class NavigationActivity : AppCompatActivity(), NavigationView.OnNavigationItemS
         setContentView(R.layout.activity_navigation)
 
         setNavDrawer()
+        //setDataProfile()
 
+        if(savedInstanceState == null){
+            loadFragment(MenuFragment())
+            nav_view.menu.getItem(0).isChecked = true
+        }
+
+    }
+
+
+
+    private fun setDataProfile() {
         val preferences = getSharedPreferences("userInfo" , Context.MODE_PRIVATE)
 
         val header: View = nav_view.getHeaderView(0)
@@ -44,21 +56,11 @@ class NavigationActivity : AppCompatActivity(), NavigationView.OnNavigationItemS
         val urlPhoto = "http://64.225.72.59/img/"+preferences.getString("photo" , "")
         header.textViewHeaderName.text = fullName
 
-
         Picasso.get()
             .load(urlPhoto)
             .fit()
             .transform(CircleTransform())
             .into(header.imageViewProfile)
-
-
-
-
-        if(savedInstanceState == null){
-            loadFragment(MenuFragment())
-            nav_view.menu.getItem(0).isChecked = true
-        }
-
 
     }
 
@@ -152,6 +154,21 @@ class NavigationActivity : AppCompatActivity(), NavigationView.OnNavigationItemS
         }
         return super.onOptionsItemSelected(item)
     }*/
+
+     fun changeNavHeaderData(){
+         val preferences = getSharedPreferences("userInfo" , Context.MODE_PRIVATE)
+
+         val header: View = nav_view.getHeaderView(0)
+         val fullName = preferences.getString("name" , "") + " " + preferences.getString("surname" , "")
+         val urlPhoto = "http://64.225.72.59/img/"+preferences.getString("photo" , "")
+         header.textViewHeaderName.text = fullName
+
+         Picasso.get()
+             .load(urlPhoto)
+             .fit()
+             .transform(CircleTransform())
+             .into(header.imageViewProfile)
+    }
 
     override fun onBackPressed() {
         if(drawer_layout.isDrawerOpen(GravityCompat.START)){
