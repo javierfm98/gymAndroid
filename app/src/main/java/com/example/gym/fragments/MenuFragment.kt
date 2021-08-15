@@ -9,13 +9,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.FragmentManager
+import androidx.navigation.Navigation
 import com.example.gym.*
 import com.example.gym.io.ApiService
 import com.example.gym.models.User
 import com.example.gym.utils.CircleTransform
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_navigation.*
+import kotlinx.android.synthetic.main.fragment_menu.*
 import kotlinx.android.synthetic.main.fragment_menu.view.*
 import kotlinx.android.synthetic.main.nav_header.view.*
 import retrofit2.Call
@@ -41,32 +42,40 @@ class MenuFragment : Fragment()  {
 
         updateDataProfile(rootView.context)
 
-        rootView.card_training.setOnClickListener {
-            loadFragment(TrainingsFragment())
+        return rootView
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        val navController = Navigation.findNavController(view)
+
+        card_training.setOnClickListener {
+            navController.navigate(R.id.trainingsFragment)
         }
 
-        rootView.cardViewReservation.setOnClickListener {
-            loadFragment(ReservationFragment())
+        cardViewReservation.setOnClickListener {
+            navController.navigate(R.id.reservationFragment)
         }
 
-        rootView.cardViewSubscription.setOnClickListener {
-            loadFragment(SubscriptionFragment())
+        cardViewSubscription.setOnClickListener {
+
         }
 
-        rootView.cardViewProfile.setOnClickListener {
-            //loadFragment(ProfileFragment())
+        cardViewProfile.setOnClickListener {
             activity?.let{
                 val intent = Intent (it, ProfileActivity::class.java)
                 it.startActivity(intent)
             }
         }
 
-        rootView.cardViewLogout.setOnClickListener {
-            performLogout(rootView.context)
+        cardViewLogout.setOnClickListener {
+            performLogout(view.context)
         }
 
 
-        return rootView
+
+
+        super.onViewCreated(view, savedInstanceState)
     }
 
     private fun updateDataProfile(context: Context) {
@@ -103,29 +112,8 @@ class MenuFragment : Fragment()  {
         editor.putString("photo" , user.photo.route)
         editor.apply()
 
-        changeNavHeader()
-    }
-
-    private fun setDataProfile(context: Context) {
-        val preferences = context.getSharedPreferences("userInfo" , Context.MODE_PRIVATE)
-
-        val header: View = nav_view.getHeaderView(0)
-        val fullName = preferences.getString("name" , "") + " " + preferences.getString("surname" , "")
-        val urlPhoto = "http://64.225.72.59/img/"+preferences.getString("photo" , "")
-        header.textViewHeaderName.text = fullName
-
-        Picasso.get()
-            .load(urlPhoto)
-            .fit()
-            .transform(CircleTransform())
-            .into(header.imageViewProfile)
-
-    }
-
-    private  fun changeNavHeader(){
         (activity as NavigationActivity).changeNavHeaderData()
     }
-
 
 
     private fun performLogout(context: Context) {
@@ -168,12 +156,6 @@ class MenuFragment : Fragment()  {
         editor.apply()
     }
 
-    private fun loadFragment(fragment: Fragment){
-        val transaction = (activity as FragmentActivity).supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.content, fragment)
-        transaction.disallowAddToBackStack()
-        transaction.commit()
-    }
 
 
 

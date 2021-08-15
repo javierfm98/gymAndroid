@@ -8,4 +8,6 @@ data class Training(val id: Int,
                     val enroll: Int,
                     val description: String,
                     @SerializedName("training_time") val trainingTime: String,
-                    @SerializedName("training_day") val trainingDay: String)
+                    @SerializedName("training_day") val trainingDay: String,
+                    @SerializedName("training_day_DB") val trainingDayDB: String)
+

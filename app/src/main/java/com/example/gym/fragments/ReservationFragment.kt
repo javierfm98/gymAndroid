@@ -44,11 +44,7 @@ class ReservationFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
 
-        activity?.setTitle("Mis reservas")
-
-        val navigationView = activity?.nav_view as NavigationView
-        navigationView.setCheckedItem(R.id.nav_reservation)
-
+        // Inflate the layout for this fragment
         val rootView = inflater.inflate(R.layout.fragment_reservation, container, false)
 
         recycler = rootView.recyclerViewReservation as RecyclerView
@@ -70,7 +66,7 @@ class ReservationFragment : Fragment() {
                         if(reservations.size > 0){
                             textViewListReserves.text = ""
                         }else{
-                            textViewListReserves.text = "No estás apuntado a ningún entreno"
+                            textViewListReserves.text = "No tienes ningún entreno cerca"
                         }
                         setRecyclerView(reservations)
                     }

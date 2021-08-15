@@ -29,10 +29,6 @@ class SubscriptionFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
 
-        activity?.setTitle("Mis Pagos")
-
-        val navigationView = activity?.nav_view as NavigationView
-        navigationView.setCheckedItem(R.id.nav_subscription)
 
         // Inflate the layout for this fragment
         val rootView = inflater.inflate(R.layout.fragment_subscription, container, false)

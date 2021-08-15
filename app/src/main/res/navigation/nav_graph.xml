@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/menuFragment">
+
+    <fragment
+        android:id="@+id/menuFragment"
+        android:name="com.example.gym.fragments.MenuFragment"
+        tools:layout="@layout/fragment_menu">
+        <action
+            android:id="@+id/action_menuFragment_to_trainingsFragment"
+            app:destination="@id/trainingsFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_reservationFragment"
+            app:destination="@id/reservationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/trainingsFragment"
+        android:name="com.example.gym.fragments.TrainingsFragment"
+        android:label="Clases"
+        tools:layout="@layout/fragment_trainings">
+        <action
+            android:id="@+id/action_trainingsFragment_to_menuFragment"
+            app:destination="@id/menuFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/reservationFragment"
+        android:name="com.example.gym.fragments.ReservationFragment"
+        android:label="Mis reservas"
+        tools:layout="@layout/fragment_reservation">
+        <action
+            android:id="@+id/action_reservationFragment_to_menuFragment"
+            app:destination="@id/menuFragment" />
+    </fragment>
+</navigation>

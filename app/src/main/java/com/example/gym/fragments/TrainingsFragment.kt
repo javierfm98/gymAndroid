@@ -55,10 +55,6 @@ class TrainingsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
 
-        activity?.setTitle("Calendario")
-
-        val navigationView = activity?.nav_view as NavigationView
-        navigationView.setCheckedItem(R.id.nav_calendar)
 
         // Inflate the layout for this fragment
         val rootView = inflater.inflate(R.layout.fragment_trainings, container, false)
@@ -74,8 +70,16 @@ class TrainingsFragment : Fragment() {
         val dateString: String = formatDate.format(date)
 
         getTrainings(dateString)
-        checkReservations(dateString)
+      //  checkReservations(dateString)
+        setHorizontalCalendar(rootView)
 
+
+
+        return rootView
+    }
+
+    private fun setHorizontalCalendar(rootView: View) {
+        val formatDate = SimpleDateFormat("yyy-MM-dd" , Locale.ENGLISH)
         val startDate: Calendar = Calendar.getInstance()
         startDate.add(Calendar.MONTH, -1)
 
@@ -95,17 +99,11 @@ class TrainingsFragment : Fragment() {
 
                     getTrainings(dateSelected)
                     adapter.notifyDataSetChanged()
-                    checkReservations(dateSelected)
+                   // checkReservations(dateSelected)
                 }
-               // setRecyclerView2()
             }
         }
-        //view.label_date.text = dateString
-
-
-        return rootView
     }
-
 
 
     private fun getTrainings( date: String) {
@@ -143,6 +141,11 @@ class TrainingsFragment : Fragment() {
 
                 override fun onReservation(training: Training, position: Int) {
                     registerTraining(training.id)
+                    //adapter.notifyDataSetChanged()
+                }
+
+                override fun onUnsubscribe(training: Training, position: Int) {
+                    activity?.toast("Me desapunto!!")
                 }
 
             }))
@@ -158,6 +161,7 @@ class TrainingsFragment : Fragment() {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 if(response.isSuccessful){
                     activity?.toast("Clase reservada")
+                    adapter.notifyDataSetChanged()
                 }
             }
 

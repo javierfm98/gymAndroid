@@ -13,6 +13,12 @@ import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.Query
+import com.google.gson.GsonBuilder
+
+import com.google.gson.Gson
+
+
+
 
 interface ApiService {
 
@@ -48,9 +54,13 @@ interface ApiService {
             interceptor.level = HttpLoggingInterceptor.Level.BODY
             val client= OkHttpClient.Builder().addInterceptor(interceptor).build()
 
+            val gson = GsonBuilder()
+                .setLenient()
+                .create()
+
             val retrofit = Retrofit.Builder()
                 .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(client)
                 .build()
             return retrofit.create(ApiService::class.java)
