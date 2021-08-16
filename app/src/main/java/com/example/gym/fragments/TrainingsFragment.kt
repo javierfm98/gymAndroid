@@ -3,6 +3,7 @@ package com.example.gym.fragments
 
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.util.TypedValue
@@ -13,7 +14,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.gym.ProfileActivity
 import com.example.gym.R
+import com.example.gym.TrainingDetailsActivity
 import com.example.gym.adapters.TrainingAdapter
 import com.example.gym.io.ApiService
 import com.example.gym.io.response.CheckResponse
@@ -45,6 +48,7 @@ class TrainingsFragment : Fragment() {
     private lateinit var adapter: TrainingAdapter
     private val layoutManager by lazy { LinearLayoutManager(context) }
     private  var jwt: String? = ""
+    private lateinit var contextView: Context
 
 
     private val apiService: ApiService by lazy {
@@ -58,10 +62,11 @@ class TrainingsFragment : Fragment() {
 
         // Inflate the layout for this fragment
         val rootView = inflater.inflate(R.layout.fragment_trainings, container, false)
+        contextView = rootView.context
 
         recycler = rootView.recyclerView as RecyclerView
 
-        val preferences = rootView.context.getSharedPreferences("general" , Context.MODE_PRIVATE)
+        val preferences = contextView.getSharedPreferences("general" , Context.MODE_PRIVATE)
         jwt = preferences.getString("session" , "")
 
         // Calendar horizontal
@@ -119,6 +124,7 @@ class TrainingsFragment : Fragment() {
                             textViewEmpty.text = "No hay entrenos disponibles"
                         }
                             setRecyclerView(training)
+
                     }
                 }
             }
@@ -136,16 +142,23 @@ class TrainingsFragment : Fragment() {
             adapter = (TrainingAdapter(training,object :RecyclerTrainingListener{
                 override fun onClick(training: Training, position: Int) {
 
-                    activity?.toast("Ver!! ${training.id}")
+                    //activity?.toast("Ver!! ${training.id}")
+                    val intent = Intent(contextView, TrainingDetailsActivity::class.java)
+                    startActivity(intent)
                 }
 
                 override fun onReservation(training: Training, position: Int) {
                     registerTraining(training.id)
-                    //adapter.notifyDataSetChanged()
+                    adapter.notifyDataSetChanged()
                 }
 
-                override fun onUnsubscribe(training: Training, position: Int) {
+                override fun onRemoveReservation(training: Training, position: Int) {
                     activity?.toast("Me desapunto!!")
+                    removeReservation(training.id)
+                }
+
+                override fun onNoMoreReservation(training: Training, position: Int) {
+                    activity?.toast("Ya esta apuntado a otro entreno este día")
                 }
 
             }))
@@ -153,6 +166,21 @@ class TrainingsFragment : Fragment() {
             recycler.adapter = adapter
 
 
+    }
+
+    private fun removeReservation(trainingId: Int) {
+        val call = apiService.removeReservation("Bearer $jwt",trainingId)
+        call.enqueue(object: Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                activity?.toast("Clase desapuntada")
+                adapter.notifyDataSetChanged()
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                activity?.toast(t.localizedMessage)
+            }
+
+        })
     }
 
     private fun registerTraining(trainingId: Int) {

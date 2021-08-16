@@ -9,15 +9,10 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.POST
-import retrofit2.http.Query
 import com.google.gson.GsonBuilder
 
 import com.google.gson.Gson
-
-
+import retrofit2.http.*
 
 
 interface ApiService {
@@ -44,6 +39,10 @@ interface ApiService {
 
     @GET("user")
     fun getUser(@Header("Authorization") authHeader: String): Call<User>
+
+    @POST("trainings/{training}")
+    fun removeReservation(@Header("Authorization") authHeader: String,
+                          @Path("training") trainingId: Int): Call<Void>
 
     companion object Factory{
         private const val BASE_URL ="http://64.225.72.59/api/"

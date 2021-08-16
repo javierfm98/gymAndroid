@@ -37,6 +37,10 @@ class ProfileActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
+
+        toolbar.setNavigationOnClickListener {
+            toast("Click!!")
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
