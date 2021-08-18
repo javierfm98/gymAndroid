@@ -8,6 +8,7 @@
     <fragment
         android:id="@+id/menuFragment"
         android:name="com.example.gym.fragments.MenuFragment"
+        android:label="Inicio"
         tools:layout="@layout/fragment_menu">
         <action
             android:id="@+id/action_menuFragment_to_trainingsFragment"

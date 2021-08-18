@@ -51,6 +51,7 @@ class TrainingsFragment : Fragment() {
     private lateinit var contextView: Context
 
 
+
     private val apiService: ApiService by lazy {
         ApiService.create()
     }
@@ -141,9 +142,9 @@ class TrainingsFragment : Fragment() {
 
             adapter = (TrainingAdapter(training,object :RecyclerTrainingListener{
                 override fun onClick(training: Training, position: Int) {
-
                     //activity?.toast("Ver!! ${training.id}")
                     val intent = Intent(contextView, TrainingDetailsActivity::class.java)
+                    intent.putExtra("training_id" , training.id)
                     startActivity(intent)
                 }
 
@@ -153,8 +154,9 @@ class TrainingsFragment : Fragment() {
                 }
 
                 override fun onRemoveReservation(training: Training, position: Int) {
-                    activity?.toast("Me desapunto!!")
+                   // activity?.toast("Me desapunto!!")
                     removeReservation(training.id)
+                  //  adapter.notifyDataSetChanged()
                 }
 
                 override fun onNoMoreReservation(training: Training, position: Int) {
@@ -170,13 +172,21 @@ class TrainingsFragment : Fragment() {
 
     private fun removeReservation(trainingId: Int) {
         val call = apiService.removeReservation("Bearer $jwt",trainingId)
-        call.enqueue(object: Callback<Void> {
-            override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                activity?.toast("Clase desapuntada")
-                adapter.notifyDataSetChanged()
+        call.enqueue(object: Callback<ArrayList<Training>> {
+            override fun onResponse(call: Call<ArrayList<Training>>, response: Response<ArrayList<Training>>) {
+                if(response.isSuccessful){
+                    val training = response.body()
+                    training?.let {
+                        setRecyclerView(training)
+                        activity?.toast("Clase desapuntada")
+                    }
+
+
+                }
+
             }
 
-            override fun onFailure(call: Call<Void>, t: Throwable) {
+            override fun onFailure(call: Call<ArrayList<Training>>, t: Throwable) {
                 activity?.toast(t.localizedMessage)
             }
 

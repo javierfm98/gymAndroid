@@ -2,6 +2,7 @@ package com.example.gym.io
 
 import com.example.gym.io.response.CheckResponse
 import com.example.gym.io.response.LoginResponse
+import com.example.gym.io.response.TrainingDetailsResponse
 import com.example.gym.models.Training
 import com.example.gym.models.User
 import okhttp3.OkHttpClient
@@ -11,7 +12,6 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import com.google.gson.GsonBuilder
 
-import com.google.gson.Gson
 import retrofit2.http.*
 
 
@@ -42,7 +42,11 @@ interface ApiService {
 
     @POST("trainings/{training}")
     fun removeReservation(@Header("Authorization") authHeader: String,
-                          @Path("training") trainingId: Int): Call<Void>
+                          @Path("training") trainingId: Int): Call<ArrayList<Training>>
+
+    @GET("trainings/{training}")
+    fun showTraining(@Header("Authorization") authHeader: String,
+                     @Path("training") trainingId: Int): Call<TrainingDetailsResponse>
 
     companion object Factory{
         private const val BASE_URL ="http://64.225.72.59/api/"
