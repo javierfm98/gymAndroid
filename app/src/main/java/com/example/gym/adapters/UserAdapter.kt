@@ -9,6 +9,7 @@ import com.example.gym.inflate
 import com.example.gym.models.User
 import com.example.gym.utils.CircleTransform
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.nav_header.view.*
 import kotlinx.android.synthetic.main.recycler_user.view.*
 
 class UserAdapter (private val users: ArrayList<User>): RecyclerView.Adapter<UserAdapter.ViewHolder>(){
@@ -22,7 +23,15 @@ class UserAdapter (private val users: ArrayList<User>): RecyclerView.Adapter<Use
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         fun bind(user: User) = with(itemView){
             val fullName = user.name + " " + user.surname
+            val urlPhoto = "http://64.225.72.59/img/"+user.photo.route
+
             textViewFullName.text = fullName
+
+            Picasso.get()
+                .load(urlPhoto)
+                .fit()
+                .transform(CircleTransform())
+                .into(imageViewProfileTraining)
         }
     }
 

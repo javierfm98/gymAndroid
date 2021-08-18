@@ -7,15 +7,11 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.gym.io.ApiService
-import com.example.gym.models.User
-import com.google.android.material.navigation.NavigationView
-import kotlinx.android.synthetic.main.activity_navigation.*
+import com.example.gym.utils.CircleTransform
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_profile.*
-import kotlinx.android.synthetic.main.nav_header.*
-import kotlinx.android.synthetic.main.nav_header.view.*
 import kotlinx.android.synthetic.main.toolbar.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -38,9 +34,35 @@ class ProfileActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
 
+        getDataProfile()
+
         toolbar.setNavigationOnClickListener {
-            toast("Click!!")
+            //toast("Click!!")
+            finish()
         }
+    }
+
+    private fun getDataProfile() {
+        val preferences = getSharedPreferences("userInfo" , Context.MODE_PRIVATE)
+        val name = preferences.getString("name" , "")
+        val surname = preferences.getString("surname" , "")
+        val phone = preferences.getString("phone" , "")
+        val username = preferences.getString("username" , "")
+        val email = preferences.getString("email" , "")
+        val urlPhoto = "http://64.225.72.59/img/"+preferences.getString("photo" , "")
+
+        textInputName.setText(name)
+        textInputSurname.setText(surname)
+        textInputUsername.setText(username)
+        textInputEmail.setText(email)
+
+        Picasso.get()
+            .load(urlPhoto)
+            .fit()
+            .transform(CircleTransform())
+            .into(imageViewProfileEdit)
+
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -51,11 +73,11 @@ class ProfileActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item?.itemId){
             R.id.itemSave -> {
-                apellido.setText("Fernández")
+              /*  apellido.setText("Fernández")
                 val imm: InputMethodManager =
                     getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 imm.showSoftInput(apellido, InputMethodManager.SHOW_IMPLICIT)
-                apellido.hideKeyboard()
+                apellido.hideKeyboard()*/
             }
 
         }

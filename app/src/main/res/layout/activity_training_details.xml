@@ -6,22 +6,65 @@
     android:layout_height="match_parent"
     tools:context=".TrainingDetailsActivity">
 
-    <LinearLayout
-        android:id="@+id/linearLayoutToolbar"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <include
-            layout="@layout/toolbar"
+        <LinearLayout
+            android:id="@+id/linearLayoutToolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewTrainingDetails"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            <include
+                layout="@layout/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
-    </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:textStyle="bold"
+                android:textAllCaps="true"
+                android:textSize="17dp"
+                android:text="Atletas"/>
+
+            <TextView
+                android:id="@+id/textViewNoUsers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="8dp"
+                tools:text="No hay atletas apuntados"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewTrainingDetails"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:textStyle="bold"
+                android:textAllCaps="true"
+                android:textSize="17dp"
+                android:text="Entreno"/>
+
+            <TextView
+                android:id="@+id/textViewDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                tools:text="Entreno"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+
 
 </RelativeLayout>

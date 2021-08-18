@@ -1,8 +1,10 @@
 package com.example.gym
 
 import android.content.Context
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Html
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gym.adapters.ReservationAdapter
@@ -58,8 +60,21 @@ class TrainingDetailsActivity : AppCompatActivity() {
             override fun onResponse(call: Call<TrainingDetailsResponse>, response: Response<TrainingDetailsResponse>) {
                 if(response.isSuccessful){
                     val users = response.body()?.allUsers
+                    val description = response.body()?.training?.description
                     users?.let {
-                        setRecyclerView(users)
+                        if(users.size > 0){
+                            setRecyclerView(users)
+                            textViewNoUsers.height = 0
+                        }else{
+                            textViewNoUsers.text = "No hay atletas apuntados"
+                        }
+
+                        textViewDescription.text = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                            Html.fromHtml(description, Html.FROM_HTML_MODE_COMPACT)
+                        } else {
+                            Html.fromHtml(description)
+                        }
+
                     }
                 }
             }
