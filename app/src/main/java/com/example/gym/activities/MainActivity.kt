@@ -1,16 +1,16 @@
-package com.example.gym
+package com.example.gym.activities
 
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.preference.PreferenceManager
-import android.view.View
 import android.view.inputmethod.InputMethodManager
+import com.example.gym.R
 import com.example.gym.io.ApiService
 import com.example.gym.io.response.LoginResponse
 import com.example.gym.models.User
+import com.example.gym.toast
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback

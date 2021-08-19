@@ -1,7 +1,8 @@
-package com.example.gym
+package com.example.gym.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.gym.R
 
 class TrainingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

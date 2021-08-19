@@ -1,29 +1,23 @@
-package com.example.gym
+package com.example.gym.activities
 
 
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
-import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.FragmentTransaction
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.example.gym.R
 import com.example.gym.fragments.*
 import com.example.gym.io.ApiService
-import com.example.gym.models.User
+import com.example.gym.toast
 import com.example.gym.utils.CircleTransform
-import com.google.android.material.navigation.NavigationView
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_navigation.*
 import kotlinx.android.synthetic.main.nav_header.*

@@ -8,17 +8,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.navigation.Navigation
 import com.example.gym.*
+import com.example.gym.activities.MainActivity
+import com.example.gym.activities.NavigationActivity
+import com.example.gym.activities.ProfileActivity
 import com.example.gym.io.ApiService
 import com.example.gym.models.User
-import com.example.gym.utils.CircleTransform
-import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.activity_navigation.*
 import kotlinx.android.synthetic.main.fragment_menu.*
-import kotlinx.android.synthetic.main.fragment_menu.view.*
-import kotlinx.android.synthetic.main.nav_header.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -30,17 +27,25 @@ class MenuFragment : Fragment()  {
         ApiService.create()
     }
 
+    private lateinit var rootView: View
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
 
         // Inflate the layout for this fragment
-        val rootView = inflater.inflate(R.layout.fragment_menu, container, false)
+         rootView = inflater.inflate(R.layout.fragment_menu, container, false)
 
-        updateDataProfile(rootView.context)
+       // updateDataProfile(rootView.context)
 
         return rootView
+    }
+
+    override fun onResume() {
+        super.onResume()
+       // activity?.toast("Inicio menu")
+        updateDataProfile(rootView.context)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

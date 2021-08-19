@@ -3,6 +3,7 @@
     package="com.example.gym">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -13,18 +14,18 @@
         android:theme="@style/Theme.Gym"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".TrainingDetailsActivity"
+            android:name=".activities.TrainingDetailsActivity"
             android:exported="true" />
         <activity
-            android:name=".ProfileActivity"
+            android:name=".activities.ProfileActivity"
             android:launchMode="singleInstance"
-            android:parentActivityName=".NavigationActivity"></activity>
-        <activity android:name=".TrainingActivity" />
+            android:parentActivityName=".activities.NavigationActivity"></activity>
+        <activity android:name=".activities.TrainingActivity" />
         <activity
-            android:name=".NavigationActivity"
+            android:name=".activities.NavigationActivity"
             android:launchMode="singleInstance" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:launchMode="singleInstance">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,4 +1,4 @@
-package com.example.gym
+package com.example.gym.activities
 
 import android.content.Context
 import android.os.Build
@@ -7,14 +7,13 @@ import android.os.Bundle
 import android.text.Html
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.gym.adapters.ReservationAdapter
+import com.example.gym.R
 import com.example.gym.adapters.UserAdapter
 import com.example.gym.io.ApiService
 import com.example.gym.io.response.TrainingDetailsResponse
 import com.example.gym.models.User
+import com.example.gym.toast
 import kotlinx.android.synthetic.main.activity_training_details.*
-import kotlinx.android.synthetic.main.fragment_trainings.*
-import kotlinx.android.synthetic.main.fragment_trainings.view.*
 import kotlinx.android.synthetic.main.toolbar.*
 import retrofit2.Call
 import retrofit2.Callback

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProfileActivity">
+    tools:context=".activities.ProfileActivity">
 
     <LinearLayout
         android:id="@+id/linearLayoutToolbar"
@@ -15,42 +15,42 @@
         <include
             layout="@layout/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayoutToolbar"
         android:orientation="vertical"
-        android:padding="20dp"
-        android:layout_below="@+id/linearLayoutToolbar">
+        android:padding="20dp">
 
 
         <ImageView
             android:id="@+id/imageViewProfileEdit"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            android:contentDescription="Navigation header"
             android:layout_gravity="center"
             android:layout_marginBottom="20dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:contentDescription="Navigation header"
             tools:srcCompat="@tools:sample/avatars" />
-
 
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textField"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Nombre"
-            android:layout_marginBottom="20dp">
+            android:layout_marginBottom="20dp"
+            android:hint="Nombre">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/textInputName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:text="Javier"
-                />
+                tools:text="Javier" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -58,15 +58,14 @@
             android:id="@+id/textField2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Apellido"
-            android:layout_marginBottom="20dp">
+            android:layout_marginBottom="20dp"
+            android:hint="Apellido">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/textInputSurname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:text="Fernandez"
-                />
+                tools:text="Fernandez" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -74,15 +73,29 @@
             android:id="@+id/textField3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Nombre de usuario"
-            android:layout_marginBottom="20dp">
+            android:layout_marginBottom="20dp"
+            android:hint="Nombre de usuario">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/textInputUsername"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:text="javier"
-                />
+                tools:text="javier" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textField5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:hint="Teléfono">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textInputPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="123456789" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -90,15 +103,14 @@
             android:id="@+id/textField4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Correo"
-            android:layout_marginBottom="20dp">
+            android:layout_marginBottom="20dp"
+            android:hint="Correo">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/textInputEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:text="javier@gmail.com"
-                />
+                tools:text="javier@gmail.com" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -107,17 +119,11 @@
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:padding="5sp"
-            android:textSize="10sp"
-            android:text="Cambiar contraseña" />
-
-
-
-
-
+            android:text="Cambiar contraseña"
+            android:textSize="10sp" />
 
 
     </LinearLayout>
-
 
 
 </RelativeLayout>

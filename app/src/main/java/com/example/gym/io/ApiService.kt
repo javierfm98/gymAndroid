@@ -48,11 +48,11 @@ interface ApiService {
     fun showTraining(@Header("Authorization") authHeader: String,
                      @Path("training") trainingId: Int): Call<TrainingDetailsResponse>
 
-    @POST("users/{user}")
+    @POST("users/update")
     fun updateProfile(@Header("Authorization") authHeader: String,
-                      @Path("user") userId: Int,
                       @Query("name") name: String,
                       @Query("surname") surname: String,
+                      @Query("phone") phone: String,
                       @Query("username") username: String,
                       @Query("email") email: String): Call<User>
     
