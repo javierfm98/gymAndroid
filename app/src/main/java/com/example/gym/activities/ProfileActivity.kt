@@ -7,6 +7,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.os.Bundle
+import android.os.Environment
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -27,6 +28,9 @@ import kotlinx.android.synthetic.main.toolbar.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.File
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class ProfileActivity : AppCompatActivity() {
@@ -45,6 +49,9 @@ class ProfileActivity : AppCompatActivity() {
                 .fit()
                 .transform(CircleTransform())
                 .into(imageViewProfileEdit)
+
+            val path = it.path
+            toast("$path")
         })
 
 
@@ -182,7 +189,6 @@ class ProfileActivity : AppCompatActivity() {
        // editor.putString("photo" , user.photo.route)
         editor.apply()
     }
-
 
 
     fun hideKeyboard(activity: Activity) {

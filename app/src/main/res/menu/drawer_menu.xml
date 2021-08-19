@@ -21,7 +21,7 @@
             android:icon="@drawable/ic_schedule"/>
 
         <item
-            android:id="@+id/nav_subscription"
+            android:id="@+id/subscriptionFragment"
             android:title="Pagos"
             android:icon="@drawable/ic_payment"/>
 

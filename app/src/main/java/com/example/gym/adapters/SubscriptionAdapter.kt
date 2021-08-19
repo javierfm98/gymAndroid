@@ -10,7 +10,7 @@ import com.example.gym.models.Subscription
 import kotlinx.android.synthetic.main.recycler_subscription.view.*
 
 
-class SubscriptionAdapter (private val subscriptions: List<Subscription>): RecyclerView.Adapter<SubscriptionAdapter.ViewHolder>(){
+class SubscriptionAdapter (private val subscriptions: ArrayList<Subscription>): RecyclerView.Adapter<SubscriptionAdapter.ViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder = ViewHolder(parent.inflate(R.layout.recycler_subscription))
 
@@ -32,7 +32,7 @@ class SubscriptionAdapter (private val subscriptions: List<Subscription>): Recyc
                 linearLayoutSubscription.setBackgroundColor(Color.parseColor("#a1e197"))
             }
 
-            textViewDaySubscription.text = subscription.end_at
+            textViewDaySubscription.text = subscription.subsEnd
         }
 
     }

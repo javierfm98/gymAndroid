@@ -61,7 +61,7 @@ class MenuFragment : Fragment()  {
         }
 
         cardViewSubscription.setOnClickListener {
-
+            navController.navigate(R.id.subscriptionFragment)
         }
 
         cardViewProfile.setOnClickListener {

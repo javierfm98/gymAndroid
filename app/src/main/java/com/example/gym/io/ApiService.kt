@@ -3,6 +3,7 @@ package com.example.gym.io
 import com.example.gym.io.response.CheckResponse
 import com.example.gym.io.response.LoginResponse
 import com.example.gym.io.response.TrainingDetailsResponse
+import com.example.gym.models.Subscription
 import com.example.gym.models.Training
 import com.example.gym.models.User
 import okhttp3.OkHttpClient
@@ -55,6 +56,9 @@ interface ApiService {
                       @Query("phone") phone: String,
                       @Query("username") username: String,
                       @Query("email") email: String): Call<User>
+
+    @GET("users/subscription")
+    fun getSubs(@Header("Authorization") authHeader: String): Call<ArrayList<Subscription>>
     
 
 
