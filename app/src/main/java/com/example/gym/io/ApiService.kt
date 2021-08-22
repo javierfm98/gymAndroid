@@ -59,6 +59,9 @@ interface ApiService {
 
     @GET("users/subscription")
     fun getSubs(@Header("Authorization") authHeader: String): Call<ArrayList<Subscription>>
+
+    @GET("axis")
+    fun getAxis(@Header("Authorization") authHeader: String): Call<ArrayList<String>>
     
 
 

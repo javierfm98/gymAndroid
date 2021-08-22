@@ -1,24 +1,28 @@
 package com.example.gym.fragments
 
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.gym.R
+import com.example.gym.io.ApiService
 import com.example.gym.models.Score
-import com.github.mikephil.charting.animation.Easing
+import com.example.gym.toast
 import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.components.XAxis
-import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
-import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import kotlinx.android.synthetic.main.fragment_stat.view.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class StatFragment : Fragment() {
@@ -29,17 +33,53 @@ class StatFragment : Fragment() {
 
     private var scoreList = ArrayList<Score>()
     private var scoreList2 = ArrayList<Score>()
+    private var axisDate: ArrayList<String> = arrayListOf()
+
+    private  var jwt: String? = ""
+
+    private val apiService: ApiService by lazy {
+        ApiService.create()
+    }
+
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val rootView = inflater.inflate(R.layout.fragment_stat, container, false)
 
-        //setLineChart(rootView)
-        initLineChart(rootView)
-        setDataToLineChart(rootView)
+        val preferences = rootView.context.getSharedPreferences("general" , Context.MODE_PRIVATE)
+        jwt = preferences.getString("session" , "")
+
+        getDateAxis(rootView)
+
+
+     /*   initLineChart(rootView)
+        setDataToLineChart(rootView)*/
 
         return rootView
+    }
+
+    private fun getDateAxis(rootView: View) {
+        val call = apiService.getAxis("Bearer $jwt")
+        call.enqueue(object: Callback<ArrayList<String>> {
+            override fun onResponse(call: Call<ArrayList<String>>, response: Response<ArrayList<String>>) {
+                if(response.isSuccessful){
+                    val axisVal = response.body()
+                    axisVal?.let {
+                        axisDate = axisVal
+                        initLineChart(rootView)
+                        setDataToLineChart(rootView)
+                    }
+                }else{
+                    activity?.toast("Malll")
+                }
+            }
+
+            override fun onFailure(call: Call<ArrayList<String>>, t: Throwable) {
+                activity?.toast(t.localizedMessage)
+            }
+
+        })
     }
 
     private fun initLineChart(rootView: View) {
@@ -76,8 +116,8 @@ class StatFragment : Fragment() {
 
         override fun getAxisLabel(value: Float, axis: AxisBase?): String {
             val index = value.toInt()
-            return if (index < scoreList.size) {
-                scoreList[index].name
+             return if (index < axisDate.size) {
+                 axisDate[index]
             } else {
                 ""
             }
@@ -148,42 +188,6 @@ class StatFragment : Fragment() {
         return scoreList2
     }
 
-    private fun setLineChart(rootView: View) {
-
-        linelist = ArrayList()
-        linelist.add(Entry(2f,40f))
-        linelist.add(Entry(2f,30f))
-        linelist.add(Entry(3f,35f))
-
-
-        lineDataSet = LineDataSet(linelist, "Count")
-        lineDataSet.valueTextColor = Color.BLUE
-        lineDataSet.valueTextSize = 13f
-
-        val xAxis = rootView.lineChart.xAxis
-        xAxis.setDrawGridLines(false)
-        val xLabel = arrayOf("L" , "M" , "X")
-
-
-
-        xAxis.position = XAxis.XAxisPosition.BOTTOM
-        xAxis.valueFormatter = (object: ValueFormatter(){
-            override fun getFormattedValue(value: Float): String {
-                val index = value.toInt()
-                return if(index < xLabel.size){
-                    xLabel[index]
-                }else{
-                    ""
-                }
-            }
-        })
-
-        lineData = LineData(lineDataSet)
-        rootView.lineChart.data = lineData
-        rootView.lineChart.axisRight.isEnabled = false
-        rootView.lineChart.axisLeft.setDrawGridLines(false)
-        rootView.lineChart.setScaleEnabled(false)
-    }
 
 
 
