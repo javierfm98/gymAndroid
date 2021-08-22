@@ -69,8 +69,6 @@ class TrainingsFragment : Fragment() {
       //  checkReservations(dateString)
         setHorizontalCalendar(rootView)
 
-
-
         return rootView
     }
 

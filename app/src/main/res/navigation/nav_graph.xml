@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_menuFragment_to_subscriptionFragment"
             app:destination="@id/subscriptionFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_statFragment"
+            app:destination="@id/statFragment" />
     </fragment>
     <fragment
         android:id="@+id/trainingsFragment"
@@ -45,6 +48,15 @@
         tools:layout="@layout/fragment_subscription">
         <action
             android:id="@+id/action_subscriptionFragment_to_menuFragment"
+            app:destination="@id/menuFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/statFragment"
+        android:name="com.example.gym.fragments.StatFragment"
+        android:label="Mi cuerpo"
+        tools:layout="@layout/fragment_stat">
+        <action
+            android:id="@+id/action_statFragment_to_menuFragment"
             app:destination="@id/menuFragment" />
     </fragment>
 </navigation>

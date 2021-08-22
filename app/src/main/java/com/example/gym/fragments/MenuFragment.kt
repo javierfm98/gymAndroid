@@ -60,6 +60,10 @@ class MenuFragment : Fragment()  {
             navController.navigate(R.id.reservationFragment)
         }
 
+        cardViewStat.setOnClickListener {
+            navController.navigate(R.id.statFragment)
+        }
+
         cardViewSubscription.setOnClickListener {
             navController.navigate(R.id.subscriptionFragment)
         }

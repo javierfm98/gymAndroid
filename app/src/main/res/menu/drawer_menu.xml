@@ -13,16 +13,19 @@
             android:title="Clases"
             android:icon="@drawable/ic_calendar"/>
 
-
-
         <item
             android:id="@+id/reservationFragment"
             android:title="Reservas"
             android:icon="@drawable/ic_schedule"/>
 
         <item
+            android:id="@+id/statFragment"
+            android:title="Mi cuerpo"
+            android:icon="@drawable/ic_bar_chart"/>
+
+        <item
             android:id="@+id/subscriptionFragment"
-            android:title="Pagos"
+            android:title="Mis Pagos"
             android:icon="@drawable/ic_payment"/>
 
     </group>
