@@ -34,6 +34,8 @@ class StatFragment : Fragment() {
     private var scoreList = ArrayList<Score>()
     private var scoreList2 = ArrayList<Score>()
     private var axisDate: ArrayList<String> = arrayListOf()
+    private var dataGoalWeight: ArrayList<Int> = arrayListOf()
+    private var dataGoalBodyFat: ArrayList<Int> = arrayListOf()
 
     private  var jwt: String? = ""
 
@@ -68,7 +70,8 @@ class StatFragment : Fragment() {
                     axisVal?.let {
                         axisDate = axisVal
                         initLineChart(rootView)
-                        setDataToLineChart(rootView)
+                        getGoalWeight(rootView)
+
                     }
                 }else{
                     activity?.toast("Malll")
@@ -76,6 +79,47 @@ class StatFragment : Fragment() {
             }
 
             override fun onFailure(call: Call<ArrayList<String>>, t: Throwable) {
+                activity?.toast(t.localizedMessage)
+            }
+
+        })
+    }
+
+    private fun getGoalWeight(rootView: View) {
+        val call = apiService.getGoalWeight("Bearer $jwt")
+        call.enqueue(object: Callback<ArrayList<Int>> {
+            override fun onResponse(call: Call<ArrayList<Int>>, response: Response<ArrayList<Int>>) {
+                if(response.isSuccessful){
+                    val weightValues = response.body()
+                    weightValues?.let {
+                        dataGoalWeight = weightValues
+                        getGoalBodyFat(rootView)
+
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<ArrayList<Int>>, t: Throwable) {
+                activity?.toast(t.localizedMessage)
+            }
+
+        })
+    }
+
+    private fun getGoalBodyFat(rootView: View) {
+        val call = apiService.getGoalBodyFat("Bearer $jwt")
+        call.enqueue(object: Callback<ArrayList<Int>> {
+            override fun onResponse(call: Call<ArrayList<Int>>, response: Response<ArrayList<Int>>) {
+                if(response.isSuccessful){
+                    val bodyFatValues = response.body()
+                    bodyFatValues?.let {
+                        dataGoalBodyFat = bodyFatValues
+                        setDataToLineChart(rootView)
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<ArrayList<Int>>, t: Throwable) {
                 activity?.toast(t.localizedMessage)
             }
 
@@ -132,20 +176,32 @@ class StatFragment : Fragment() {
         scoreList = getScoreList()
         scoreList2 = getScoreList2()
 
+       // Log.e("BODY" , "$dataGoalBodyFat")
+
         //you can replace this data object with  your custom object
-        for (i in scoreList.indices) {
+      /*  for (i in scoreList.indices) {
             val score = scoreList[i]
             entries.add(Entry(i.toFloat(), score.score.toFloat()))
+        }*/
+
+        for (i in dataGoalWeight.indices){
+            val value = dataGoalWeight[i]
+            entries.add(Entry((i.toFloat()), value.toFloat()))
         }
 
-        for (i in scoreList2.indices) {
+        for(i in dataGoalBodyFat.indices){
+            val value = dataGoalBodyFat[i]
+            entries2.add(Entry((i.toFloat()), value.toFloat()))
+        }
+
+      /*  for (i in scoreList2.indices) {
             val score = scoreList2[i]
             entries2.add(Entry(i.toFloat()+1, score.score.toFloat()))
-        }
+        }*/
 
 
-        val lineDataSet = LineDataSet(entries, "Peso")
-        val lineDataSet2 = LineDataSet(entries2, "% Grasa")
+        val lineDataSet = LineDataSet(entries, "Objetivo Peso")
+        val lineDataSet2 = LineDataSet(entries2, " Objetivo % Grasa")
 
         lineDataSet.lineWidth = 3f
         lineDataSet.color = Color.BLUE

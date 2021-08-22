@@ -62,7 +62,14 @@ interface ApiService {
 
     @GET("axis")
     fun getAxis(@Header("Authorization") authHeader: String): Call<ArrayList<String>>
-    
+
+    @GET("goal/weight")
+    fun getGoalWeight(@Header("Authorization") authHeader: String): Call<ArrayList<Int>>
+
+    @GET("goal/body")
+    fun getGoalBodyFat(@Header("Authorization") authHeader: String): Call<ArrayList<Int>>
+
+
 
 
     companion object Factory{
