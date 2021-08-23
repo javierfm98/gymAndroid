@@ -3,14 +3,12 @@ package com.example.gym.fragments
 import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.gym.R
 import com.example.gym.io.ApiService
-import com.example.gym.models.Score
 import com.example.gym.toast
 import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.components.XAxis
@@ -31,11 +29,10 @@ class StatFragment : Fragment() {
     lateinit var lineDataSet: LineDataSet
     lateinit var lineData: LineData
 
-    private var scoreList = ArrayList<Score>()
-    private var scoreList2 = ArrayList<Score>()
     private var axisDate: ArrayList<String> = arrayListOf()
     private var dataGoalWeight: ArrayList<Int> = arrayListOf()
     private var dataGoalBodyFat: ArrayList<Int> = arrayListOf()
+    private var dataWeight: ArrayList<Int> = arrayListOf()
 
     private  var jwt: String? = ""
 
@@ -53,10 +50,6 @@ class StatFragment : Fragment() {
         jwt = preferences.getString("session" , "")
 
         getDateAxis(rootView)
-
-
-     /*   initLineChart(rootView)
-        setDataToLineChart(rootView)*/
 
         return rootView
     }
@@ -114,7 +107,8 @@ class StatFragment : Fragment() {
                     val bodyFatValues = response.body()
                     bodyFatValues?.let {
                         dataGoalBodyFat = bodyFatValues
-                        setDataToLineChart(rootView)
+                        getWeightData(rootView)
+
                     }
                 }
             }
@@ -126,29 +120,42 @@ class StatFragment : Fragment() {
         })
     }
 
+    private fun getWeightData(rootView: View) {
+        val call = apiService.getWeightData("Bearer $jwt")
+        call.enqueue((object: Callback<ArrayList<Int>> {
+            override fun onResponse(call: Call<ArrayList<Int>>, response: Response<ArrayList<Int>>) {
+                if(response.isSuccessful){
+                    val weightData = response.body()
+                    weightData?.let {
+                        dataWeight = weightData
+                        setDataToLineChart(rootView)
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<ArrayList<Int>>, t: Throwable) {
+                activity?.toast(t.localizedMessage)
+            }
+
+        }))
+    }
+
     private fun initLineChart(rootView: View) {
-        // hide grid lines
+        //hide grid lines
         rootView.lineChart.axisLeft.setDrawGridLines(false)
         val xAxis: XAxis = rootView.lineChart.xAxis
         xAxis.setDrawGridLines(false)
-      //  xAxis.setDrawAxisLine(false)
-
         rootView.lineChart.axisLeft.axisMinimum = 0f
 
         //remove right y-axis
         rootView.lineChart.axisRight.isEnabled = false
 
-        //remove legend
-       // rootView.lineChart.legend.isEnabled = false
-
         //remove description label
         rootView.lineChart.description.isEnabled = false
 
+        rootView.lineChart.setExtraOffsets(5f,10f,5f,15f)
 
-        //add animation
-     //   rootView.lineChart.animateX(1000, Easing.EaseInSine)
-
-        // to draw label on xAxis
+        //to draw label on xAxis
         xAxis.position = XAxis.XAxisPosition.BOTTOM
         xAxis.valueFormatter = MyAxisFormatter()
         xAxis.setDrawLabels(true)
@@ -170,57 +177,40 @@ class StatFragment : Fragment() {
 
     private fun setDataToLineChart(rootView: View) {
         //now draw bar chart with dynamic data
-        val entries: ArrayList<Entry> = ArrayList()
-        val entries2: ArrayList<Entry> = ArrayList()
+        val entriesGoalWeight: ArrayList<Entry> = ArrayList()
+        val entriesGoalBodyFat: ArrayList<Entry> = ArrayList()
+        val entriesWeight: ArrayList<Entry> = ArrayList()
 
-        scoreList = getScoreList()
-        scoreList2 = getScoreList2()
-
-       // Log.e("BODY" , "$dataGoalBodyFat")
-
-        //you can replace this data object with  your custom object
-      /*  for (i in scoreList.indices) {
-            val score = scoreList[i]
-            entries.add(Entry(i.toFloat(), score.score.toFloat()))
-        }*/
 
         for (i in dataGoalWeight.indices){
             val value = dataGoalWeight[i]
-            entries.add(Entry((i.toFloat()), value.toFloat()))
+            entriesGoalWeight.add(Entry((i.toFloat()), value.toFloat()))
         }
 
         for(i in dataGoalBodyFat.indices){
             val value = dataGoalBodyFat[i]
-            entries2.add(Entry((i.toFloat()), value.toFloat()))
+            entriesGoalBodyFat.add(Entry((i.toFloat()), value.toFloat()))
         }
 
-      /*  for (i in scoreList2.indices) {
-            val score = scoreList2[i]
-            entries2.add(Entry(i.toFloat()+1, score.score.toFloat()))
-        }*/
+        for(i in dataWeight.indices){
+            val value = dataWeight[i]
+            entriesWeight.add(Entry((i.toFloat()), value.toFloat()))
+        }
 
 
-        val lineDataSet = LineDataSet(entries, "Objetivo Peso")
-        val lineDataSet2 = LineDataSet(entries2, " Objetivo % Grasa")
+        val lineDataSetGoalWeight = LineDataSet(entriesGoalWeight, "Objetivo Peso")
+        val lineDataSetGoalBodyFat = LineDataSet(entriesGoalBodyFat, " Objetivo % Grasa")
+        val lineDataSetWeight = LineDataSet(entriesWeight, "Peso")
 
-        lineDataSet.lineWidth = 3f
-        lineDataSet.color = Color.BLUE
-        lineDataSet.setDrawCircles(false)
-    /*    lineDataSet.circleHoleColor = Color.BLUE
-        lineDataSet.setCircleColors(Color.BLUE)*/
-        lineDataSet.setDrawValues(false)
-        lineDataSet.valueTextSize = 10f
-        lineDataSet.enableDashedLine(8f, 10f, 10f)
+        styleLineGoals(lineDataSetGoalWeight, Color.BLUE)
+        styleLineGoals(lineDataSetGoalBodyFat, Color.RED)
 
+        styleLineBasic(lineDataSetWeight, Color.GREEN)
 
-
-        lineDataSet2.lineWidth = 3f
-        //lineDataSet2.circleHoleRadius = 10f
-        lineDataSet2.circleHoleColor = Color.RED
-        lineDataSet2.setCircleColors(Color.RED)
         val dataSets: ArrayList<ILineDataSet> = ArrayList()
-        dataSets.add(lineDataSet)
-        dataSets.add(lineDataSet2)
+        dataSets.add(lineDataSetGoalWeight)
+        dataSets.add(lineDataSetGoalBodyFat)
+        dataSets.add(lineDataSetWeight)
 
         val data = LineData(dataSets)
         rootView.lineChart.data = data
@@ -228,20 +218,21 @@ class StatFragment : Fragment() {
         rootView.lineChart.invalidate()
     }
 
-    // simulate api call
-    // we are initialising it directly
-    private fun getScoreList(): ArrayList<Score> {
-        scoreList.add(Score("2021-08-21", 80))
-        scoreList.add(Score("2021-08-22", 80))
-        scoreList.add(Score("2021-08-23", 80))
 
-        return scoreList
+    private fun styleLineGoals(line: LineDataSet, color: Int){
+        line.lineWidth = 3f
+        line.color = color
+        line.valueTextSize = 10f
+        line.setDrawCircles(false)
+        line.setDrawValues(false)
+        line.enableDashedLine(5f, 10f, 0f)
     }
 
-    private fun getScoreList2(): ArrayList<Score> {
-        scoreList2.add(Score("2021-08-22", 195))
-
-        return scoreList2
+    private  fun styleLineBasic(line: LineDataSet, color: Int){
+        line.lineWidth = 3f
+        line.color = color
+        line.valueTextSize = 10f
+        line.setDrawCircles(false)
     }
 
 
