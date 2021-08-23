@@ -7,12 +7,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.viewpager.widget.PagerAdapter
 import com.example.gym.R
-import com.example.gym.adapters.ViewPagerAdapter
 import com.example.gym.io.ApiService
 import com.example.gym.io.response.ChartResponse
 import com.example.gym.toast
+import com.example.gym.utils.CustomMarkerView
 import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
@@ -20,8 +19,6 @@ import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
-import com.google.android.material.tabs.TabLayoutMediator
-import kotlinx.android.synthetic.main.fragment_chart.*
 import kotlinx.android.synthetic.main.fragment_chart.view.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -168,9 +165,17 @@ class ChartFragment : Fragment() {
         dataSets.add(lineDataSetWeight)
         dataSets.add(lineDataSetBodyFat)
 
+        val mv = CustomMarkerView(
+            rootView.context,
+            R.layout.marker_view
+        )
+
+
         val data = LineData(dataSets)
         rootView.lineChart.data = data
         rootView.lineChart.setScaleEnabled(false)
+        rootView.lineChart.setTouchEnabled(true)
+        rootView.lineChart.marker = mv
         rootView.lineChart.invalidate()
     }
 

@@ -12,13 +12,17 @@
         <entry key="..\:/android/gym/app/src/main/res/layout/activity_tab.xml" value="0.3211050724637681" />
         <entry key="..\:/android/gym/app/src/main/res/layout/activity_training.xml" value="0.4041666666666667" />
         <entry key="..\:/android/gym/app/src/main/res/layout/activity_training_details.xml" value="0.36277173913043476" />
+        <entry key="..\:/android/gym/app/src/main/res/layout/fragment_add_stat.xml" value="0.31521739130434784" />
         <entry key="..\:/android/gym/app/src/main/res/layout/fragment_chart.xml" value="0.3211050724637681" />
+        <entry key="..\:/android/gym/app/src/main/res/layout/fragment_goal.xml" value="0.31521739130434784" />
+        <entry key="..\:/android/gym/app/src/main/res/layout/fragment_list_stat.xml" value="0.31521739130434784" />
         <entry key="..\:/android/gym/app/src/main/res/layout/fragment_menu.xml" value="0.19655521783181357" />
         <entry key="..\:/android/gym/app/src/main/res/layout/fragment_profile.xml" value="0.19655521783181357" />
         <entry key="..\:/android/gym/app/src/main/res/layout/fragment_reservation.xml" value="0.29393115942028986" />
         <entry key="..\:/android/gym/app/src/main/res/layout/fragment_stat.xml" value="0.3836050724637681" />
         <entry key="..\:/android/gym/app/src/main/res/layout/fragment_subscription.xml" value="0.19655521783181357" />
         <entry key="..\:/android/gym/app/src/main/res/layout/fragment_trainings.xml" value="0.26875" />
+        <entry key="..\:/android/gym/app/src/main/res/layout/marker_view.xml" value="0.31521739130434784" />
         <entry key="..\:/android/gym/app/src/main/res/layout/nav_header.xml" value="0.29393115942028986" />
         <entry key="..\:/android/gym/app/src/main/res/layout/recycler_reservation.xml" value="0.2753623188405797" />
         <entry key="..\:/android/gym/app/src/main/res/layout/recycler_subscription.xml" value="0.19655521783181357" />

@@ -61,25 +61,8 @@ interface ApiService {
     @GET("users/subscription")
     fun getSubs(@Header("Authorization") authHeader: String): Call<ArrayList<Subscription>>
 
-    @GET("axis")
-    fun getAxis(@Header("Authorization") authHeader: String): Call<ArrayList<String>>
-
-    @GET("goal/weight")
-    fun getGoalWeight(@Header("Authorization") authHeader: String): Call<ArrayList<Int>>
-
-    @GET("goal/body")
-    fun getGoalBodyFat(@Header("Authorization") authHeader: String): Call<ArrayList<Int>>
-
-    @GET("weight")
-    fun getWeightData(@Header("Authorization") authHeader: String): Call<ArrayList<Int>>
-
-    @GET("body")
-    fun getBodyFatData(@Header("Authorization") authHeader: String): Call<ArrayList<Int>>
-
     @GET("chart")
     fun getDataChart(@Header("Authorization") authHeader: String): Call<ChartResponse>
-
-
 
 
     companion object Factory{
