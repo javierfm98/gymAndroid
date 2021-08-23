@@ -3,7 +3,7 @@
     package="com.example.gym">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -14,12 +14,15 @@
         android:theme="@style/Theme.Gym"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".activities.TabActivity"
+            android:exported="true" />
+        <activity
             android:name=".activities.TrainingDetailsActivity"
             android:exported="true" />
         <activity
             android:name=".activities.ProfileActivity"
             android:launchMode="singleInstance"
-            android:parentActivityName=".activities.NavigationActivity"></activity>
+            android:parentActivityName=".activities.NavigationActivity" />
         <activity android:name=".activities.TrainingActivity" />
         <activity
             android:name=".activities.NavigationActivity"

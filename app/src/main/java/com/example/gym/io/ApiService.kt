@@ -1,5 +1,6 @@
 package com.example.gym.io
 
+import com.example.gym.io.response.ChartResponse
 import com.example.gym.io.response.CheckResponse
 import com.example.gym.io.response.LoginResponse
 import com.example.gym.io.response.TrainingDetailsResponse
@@ -74,6 +75,9 @@ interface ApiService {
 
     @GET("body")
     fun getBodyFatData(@Header("Authorization") authHeader: String): Call<ArrayList<Int>>
+
+    @GET("chart")
+    fun getDataChart(@Header("Authorization") authHeader: String): Call<ChartResponse>
 
 
 
