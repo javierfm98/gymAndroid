@@ -72,6 +72,9 @@ interface ApiService {
     @GET("weight")
     fun getWeightData(@Header("Authorization") authHeader: String): Call<ArrayList<Int>>
 
+    @GET("body")
+    fun getBodyFatData(@Header("Authorization") authHeader: String): Call<ArrayList<Int>>
+
 
 
 

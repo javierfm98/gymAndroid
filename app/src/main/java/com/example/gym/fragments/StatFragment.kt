@@ -33,6 +33,7 @@ class StatFragment : Fragment() {
     private var dataGoalWeight: ArrayList<Int> = arrayListOf()
     private var dataGoalBodyFat: ArrayList<Int> = arrayListOf()
     private var dataWeight: ArrayList<Int> = arrayListOf()
+    private var dataBodyFat: ArrayList<Int> = arrayListOf()
 
     private  var jwt: String? = ""
 
@@ -122,12 +123,32 @@ class StatFragment : Fragment() {
 
     private fun getWeightData(rootView: View) {
         val call = apiService.getWeightData("Bearer $jwt")
-        call.enqueue((object: Callback<ArrayList<Int>> {
+        call.enqueue(object: Callback<ArrayList<Int>> {
             override fun onResponse(call: Call<ArrayList<Int>>, response: Response<ArrayList<Int>>) {
                 if(response.isSuccessful){
                     val weightData = response.body()
                     weightData?.let {
                         dataWeight = weightData
+                        getBodyFatData(rootView)
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<ArrayList<Int>>, t: Throwable) {
+                activity?.toast(t.localizedMessage)
+            }
+
+        })
+    }
+
+    private  fun getBodyFatData(rootView: View){
+        val call = apiService.getBodyFatData("Bearer $jwt")
+        call.enqueue(object: Callback<ArrayList<Int>> {
+            override fun onResponse(call: Call<ArrayList<Int>>, response: Response<ArrayList<Int>>) {
+                if(response.isSuccessful){
+                    val bodyFatData = response.body()
+                    bodyFatData?.let {
+                        dataBodyFat = bodyFatData
                         setDataToLineChart(rootView)
                     }
                 }
@@ -137,7 +158,7 @@ class StatFragment : Fragment() {
                 activity?.toast(t.localizedMessage)
             }
 
-        }))
+        })
     }
 
     private fun initLineChart(rootView: View) {
@@ -180,6 +201,7 @@ class StatFragment : Fragment() {
         val entriesGoalWeight: ArrayList<Entry> = ArrayList()
         val entriesGoalBodyFat: ArrayList<Entry> = ArrayList()
         val entriesWeight: ArrayList<Entry> = ArrayList()
+        val entriesBodyFat: ArrayList<Entry> = ArrayList()
 
 
         for (i in dataGoalWeight.indices){
@@ -197,20 +219,29 @@ class StatFragment : Fragment() {
             entriesWeight.add(Entry((i.toFloat()), value.toFloat()))
         }
 
+        for(i in dataBodyFat.indices){
+            val value = dataBodyFat[i]
+            entriesBodyFat.add(Entry((i+2.toFloat()), value.toFloat()))
+        }
+
+
 
         val lineDataSetGoalWeight = LineDataSet(entriesGoalWeight, "Objetivo Peso")
         val lineDataSetGoalBodyFat = LineDataSet(entriesGoalBodyFat, " Objetivo % Grasa")
         val lineDataSetWeight = LineDataSet(entriesWeight, "Peso")
+        val lineDataSetBodyFat = LineDataSet(entriesBodyFat, "% Grasa")
 
         styleLineGoals(lineDataSetGoalWeight, Color.BLUE)
         styleLineGoals(lineDataSetGoalBodyFat, Color.RED)
 
         styleLineBasic(lineDataSetWeight, Color.GREEN)
+        styleLineBasic(lineDataSetBodyFat, Color.MAGENTA)
 
         val dataSets: ArrayList<ILineDataSet> = ArrayList()
         dataSets.add(lineDataSetGoalWeight)
         dataSets.add(lineDataSetGoalBodyFat)
         dataSets.add(lineDataSetWeight)
+        dataSets.add(lineDataSetBodyFat)
 
         val data = LineData(dataSets)
         rootView.lineChart.data = data
@@ -232,7 +263,8 @@ class StatFragment : Fragment() {
         line.lineWidth = 3f
         line.color = color
         line.valueTextSize = 10f
-        line.setDrawCircles(false)
+       // line.setDrawValues(false)
+     //   line.setDrawCircles(false)
     }
 
 
