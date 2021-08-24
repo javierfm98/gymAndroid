@@ -44,6 +44,7 @@ class GoalFragment : Fragment() {
             val bodyFat = rootView.textInputGoalBodyFat.text.toString()
 
             activity?.let { it1 -> hideKeyboard(it1) }
+            activity?.window?.decorView?.clearFocus()
             storeGoal(weight, bodyFat)
         }
 

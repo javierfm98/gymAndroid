@@ -14,9 +14,9 @@ class ViewPagerAdapter(fragment: FragmentManager, lifecycle: Lifecycle):  Fragme
     override fun createFragment(position: Int): Fragment {
         return  when(position){
             0->  ChartFragment()
-            1->  AddStatFragment()
-            2->  GoalFragment()
-            3->  ListStatFragment()
+            1->  ListStatFragment()
+            2->  AddStatFragment()
+            3->  GoalFragment()
             else ->   Fragment()
         }
     }

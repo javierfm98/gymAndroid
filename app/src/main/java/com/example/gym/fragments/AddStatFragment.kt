@@ -40,12 +40,13 @@ class AddStatFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        textInputDatePicker.setOnClickListener {
+       textInputDatePicker.setOnClickListener {
             showDatePickerDialog()
         }
 
         buttonBody.setOnClickListener {
             activity?.let { it1 -> hideKeyboard(it1) }
+            activity?.window?.decorView?.clearFocus()
             saveDataBody()
         }
     }

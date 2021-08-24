@@ -48,9 +48,9 @@ class StatFragment : Fragment() {
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             when (position) {
                 0 -> tab.text = "Gráfica"
-                1 -> tab.text = "Añadir"
-                2 -> tab.text = "Objetivos"
-                3 -> tab.text = "Mediciones"
+                1 -> tab.text = "Mediciones"
+                2 -> tab.text = "Añadir"
+                3 -> tab.text = "Objetivos"
             }
         }.attach()
     }
