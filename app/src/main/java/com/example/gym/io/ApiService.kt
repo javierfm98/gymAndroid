@@ -1,9 +1,7 @@
 package com.example.gym.io
 
-import com.example.gym.io.response.ChartResponse
-import com.example.gym.io.response.CheckResponse
-import com.example.gym.io.response.LoginResponse
-import com.example.gym.io.response.TrainingDetailsResponse
+import com.example.gym.io.response.*
+import com.example.gym.models.Body
 import com.example.gym.models.Subscription
 import com.example.gym.models.Training
 import com.example.gym.models.User
@@ -63,6 +61,27 @@ interface ApiService {
 
     @GET("chart")
     fun getDataChart(@Header("Authorization") authHeader: String): Call<ChartResponse>
+
+    @GET("chart/store")
+    fun storeStats(@Header("Authorization") authHeader: String,
+                   @Query("day") date: String,
+                   @Query("weight") weight: Float,
+                   @Query("body_fat") bodyFat: Float): Call<Void>
+
+    @GET("chart/goal/store")
+    fun storeGoal(@Header("Authorization") authHeader: String,
+                  @Query("goal_weight") goalWeight: Float,
+                  @Query("goal_body_fat") goalBodyFat: Float): Call<Void>
+
+    @GET("chart/goal/show")
+    fun getGoal(@Header("Authorization") authHeader: String): Call<GoalResponse>
+
+    @GET("chart/list")
+    fun getBodyData(@Header("Authorization") authHeader: String): Call<ArrayList<Body>>
+
+    @POST("chart/destroy/{body}")
+    fun removeBody(@Header("Authorization") authHeader: String,
+                   @Path("body") bodyId: Int): Call<ArrayList<Body>>
 
 
     companion object Factory{

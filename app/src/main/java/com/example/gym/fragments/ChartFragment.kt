@@ -27,10 +27,6 @@ import retrofit2.Response
 
 class ChartFragment : Fragment() {
 
-    lateinit var linelist: ArrayList<Entry>
-    lateinit var lineDataSet: LineDataSet
-    lateinit var lineData: LineData
-
     private var axisDate: ArrayList<String> = arrayListOf()
     private var dataGoalWeight: ArrayList<Float> = arrayListOf()
     private var dataGoalBodyFat: ArrayList<Float> = arrayListOf()
@@ -40,6 +36,7 @@ class ChartFragment : Fragment() {
     private var pointStartBodyFat: Int = -1
 
     private  var jwt: String? = ""
+    private lateinit var rootView: View
 
     private val apiService: ApiService by lazy {
         ApiService.create()
@@ -49,18 +46,21 @@ class ChartFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        val rootView = inflater.inflate(R.layout.fragment_chart, container, false)
+         rootView = inflater.inflate(R.layout.fragment_chart, container, false)
 
         val preferences = rootView.context.getSharedPreferences("general" , Context.MODE_PRIVATE)
         jwt = preferences.getString("session" , "")
 
-     //   getDateAxis(rootView)
-        getDataChart(rootView)
-
         return rootView
     }
 
-    private fun getDataChart(rootView: View) {
+    override fun onResume() {
+        super.onResume()
+        getDataChart()
+       // activity?.toast("Activo graficas")
+    }
+
+    private fun getDataChart() {
         val call = apiService.getDataChart("Bearer $jwt")
         call.enqueue(object: Callback<ChartResponse> {
             override fun onResponse(call: Call<ChartResponse>, response: Response<ChartResponse>) {
@@ -74,8 +74,8 @@ class ChartFragment : Fragment() {
                         dataBodyFat = data.arrayBodyFat
                         pointStartWeight = data.pointStartWeight
                         pointStartBodyFat = data.pointStartBodyFat
-                        initLineChart(rootView)
-                        setDataToLineChart(rootView)
+                        initLineChart()
+                        setDataToLineChart()
                     }
                 }
             }
@@ -87,7 +87,7 @@ class ChartFragment : Fragment() {
         })
     }
 
-    private fun initLineChart(rootView: View) {
+    private fun initLineChart() {
         //hide grid lines
         rootView.lineChart.axisLeft.setDrawGridLines(false)
         val xAxis: XAxis = rootView.lineChart.xAxis
@@ -122,7 +122,7 @@ class ChartFragment : Fragment() {
         }
     }
 
-    private fun setDataToLineChart(rootView: View) {
+    private fun setDataToLineChart() {
         //now draw bar chart with dynamic data
         val entriesGoalWeight: ArrayList<Entry> = ArrayList()
         val entriesGoalBodyFat: ArrayList<Entry> = ArrayList()

@@ -36,7 +36,4 @@ class SubscriptionAdapter (private val subscriptions: ArrayList<Subscription>): 
         }
 
     }
-
-
-
 }
