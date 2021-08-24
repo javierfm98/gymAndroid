@@ -65,13 +65,13 @@ interface ApiService {
     @GET("chart/store")
     fun storeStats(@Header("Authorization") authHeader: String,
                    @Query("day") date: String,
-                   @Query("weight") weight: Float,
-                   @Query("body_fat") bodyFat: Float): Call<Void>
+                   @Query("weight") weight: String,
+                   @Query("body_fat") bodyFat: String): Call<Void>
 
     @GET("chart/goal/store")
     fun storeGoal(@Header("Authorization") authHeader: String,
-                  @Query("goal_weight") goalWeight: Float,
-                  @Query("goal_body_fat") goalBodyFat: Float): Call<Void>
+                  @Query("goal_weight") goalWeight: String,
+                  @Query("goal_body_fat") goalBodyFat: String): Call<Void>
 
     @GET("chart/goal/show")
     fun getGoal(@Header("Authorization") authHeader: String): Call<GoalResponse>

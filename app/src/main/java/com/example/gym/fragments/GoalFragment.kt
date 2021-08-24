@@ -40,8 +40,8 @@ class GoalFragment : Fragment() {
         getDataGoals()
 
         rootView.buttonGoalStore.setOnClickListener {
-            val weight = rootView.textInputGoalWeight.text.toString().toFloat()
-            val bodyFat = rootView.textInputGoalBodyFat.text.toString().toFloat()
+            val weight = rootView.textInputGoalWeight.text.toString()
+            val bodyFat = rootView.textInputGoalBodyFat.text.toString()
 
             activity?.let { it1 -> hideKeyboard(it1) }
             storeGoal(weight, bodyFat)
@@ -71,7 +71,7 @@ class GoalFragment : Fragment() {
         })
     }
 
-    private fun storeGoal(weight: Float, bodyFat: Float) {
+    private fun storeGoal(weight: String, bodyFat: String) {
         val call = apiService.storeGoal("Bearer $jwt", weight, bodyFat)
         call.enqueue(object: Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
