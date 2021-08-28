@@ -23,12 +23,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         val preferences = getSharedPreferences("general" , Context.MODE_PRIVATE)
         val session = preferences.getString("session" , "")
-
 
 
         if (session != null) {

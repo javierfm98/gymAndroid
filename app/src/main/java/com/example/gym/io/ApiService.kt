@@ -1,5 +1,6 @@
 package com.example.gym.io
 
+import android.graphics.Bitmap
 import com.example.gym.io.response.*
 import com.example.gym.models.Body
 import com.example.gym.models.Subscription
@@ -13,6 +14,16 @@ import retrofit2.converter.gson.GsonConverterFactory
 import com.google.gson.GsonBuilder
 
 import retrofit2.http.*
+import okhttp3.RequestBody
+
+import okhttp3.MultipartBody
+
+import okhttp3.ResponseBody
+
+import retrofit2.http.POST
+
+import retrofit2.http.Multipart
+import java.io.File
 
 
 interface ApiService {
@@ -82,6 +93,14 @@ interface ApiService {
     @POST("chart/destroy/{body}")
     fun removeBody(@Header("Authorization") authHeader: String,
                    @Path("body") bodyId: Int): Call<ArrayList<Body>>
+
+    @Multipart
+    @POST("image")
+    fun uploadImage(@Header("Authorization") authHeader: String,
+                    @Part photo: MultipartBody.Part,
+                    @Query("name") name:String): Call<Void>
+
+
 
 
     companion object Factory{

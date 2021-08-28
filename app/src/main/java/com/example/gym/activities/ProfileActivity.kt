@@ -3,21 +3,17 @@ package com.example.gym.activities
 
 import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
+import android.database.Cursor
+import android.net.Uri
 import android.os.Bundle
-import android.os.Environment
+import android.provider.OpenableColumns
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.view.inputmethod.InputMethodManager
-import androidx.activity.result.ActivityResultCallback
-import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.example.gym.R
-import com.example.gym.databinding.ActivityMainBinding
 import com.example.gym.io.ApiService
 import com.example.gym.models.User
 import com.example.gym.toast
@@ -25,12 +21,14 @@ import com.example.gym.utils.CircleTransform
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_profile.*
 import kotlinx.android.synthetic.main.toolbar.*
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.File
-import java.text.SimpleDateFormat
-import java.util.*
+import java.io.InputStream
 
 
 class ProfileActivity : AppCompatActivity() {
@@ -39,20 +37,41 @@ class ProfileActivity : AppCompatActivity() {
         ApiService.create()
     }
 
+    private var stream: InputStream? = null
+    private  var name: String = ""
+
+
     val GALLERY_PHOTO = 1
     val permissionReadStorage = android.Manifest.permission.READ_EXTERNAL_STORAGE
-    val getImage = registerForActivityResult(ActivityResultContracts.GetContent(),
-        ActivityResultCallback {
+    val getImage = registerForActivityResult(ActivityResultContracts.GetContent()){ uri: Uri? ->
 
+        if(uri != null){
             Picasso.get()
-                .load(it)
+                .load(uri)
                 .fit()
                 .transform(CircleTransform())
                 .into(imageViewProfileEdit)
 
-            val path = it.path
-            toast("$path")
-        })
+            val cursor: Cursor? = this.getContentResolver().query(uri, null, null, null, null)
+
+            cursor?.use{
+                it.moveToFirst()
+                name = cursor.getString(it.getColumnIndex(OpenableColumns.DISPLAY_NAME))
+                cursor.close()
+            }
+
+             stream = contentResolver.openInputStream(uri)
+
+
+         //  uploadImage(stream!!,name)
+
+
+        }
+
+
+    }
+
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -138,6 +157,7 @@ class ProfileActivity : AppCompatActivity() {
         when(item?.itemId){
             R.id.itemSave -> {
                 hideKeyboard(this)
+                uploadImage(stream!!,name)
                 saveProfile()
                 window.decorView.clearFocus()
             }
@@ -191,6 +211,37 @@ class ProfileActivity : AppCompatActivity() {
     }
 
 
+    private fun uploadImage(file: InputStream, name: String) {
+        val preferences = getSharedPreferences("general" , Context.MODE_PRIVATE)
+        val jwt = preferences.getString("session" , "")
+      //  val file = File(image.toString())
+
+        val requestBody = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), file.readBytes())
+
+        val fileToUpload = MultipartBody.Part.createFormData("image", "myPic", requestBody)
+
+
+        val call = apiService.uploadImage("Bearer $jwt", fileToUpload, name)
+        call.enqueue(object: Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if(response.isSuccessful){
+                //    toast("Bien")
+                }else{
+                 //   toast("Error!!")
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                toast(t.localizedMessage)
+            }
+
+        })
+
+    }
+
+
+
+
     fun hideKeyboard(activity: Activity) {
         val imm = activity.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
         if (null != activity.currentFocus) imm.hideSoftInputFromWindow(
@@ -199,6 +250,10 @@ class ProfileActivity : AppCompatActivity() {
         )
     }
 
+
+
 }
+
+
 
 
