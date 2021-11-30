@@ -25,11 +25,14 @@ class SubscriptionAdapter (private val subscriptions: ArrayList<Subscription>): 
         fun bind(subscription:  Subscription) = with(itemView){
 
             if(subscription.status == 0){
-                texViewStatus.text = "SIN PAGAR"
-                linearLayoutSubscription.setBackgroundColor(Color.parseColor("#cd5e54"))
+                textViewStatus.text = "SIN PAGAR"
+                textViewStatus.setBackgroundResource(R.drawable.border_radius_subscriptions_red)
+            }else if(subscription.status == 1){
+                textViewStatus.text = "PAGADO"
+                textViewStatus.setBackgroundResource(R.drawable.border_radius_subscriptions_green)
             }else{
-                texViewStatus.text = "PAGADO"
-                linearLayoutSubscription.setBackgroundColor(Color.parseColor("#a1e197"))
+                textViewStatus.text = "PENDIENTE"
+                textViewStatus.setBackgroundResource(R.drawable.border_radius_subscriptions_yellow)
             }
 
             textViewDaySubscription.text = subscription.subsEnd

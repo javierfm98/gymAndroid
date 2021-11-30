@@ -42,6 +42,7 @@ class TrainingsFragment : Fragment() {
 
 
 
+
     private val apiService: ApiService by lazy {
         ApiService.create()
     }
@@ -101,6 +102,7 @@ class TrainingsFragment : Fragment() {
 
 
     private fun getTrainings( date: String) {
+
         val call = apiService.getTrainings(date)
         call.enqueue(object: Callback<ArrayList<Training>> {
             override fun onResponse(call: Call<ArrayList<Training>>,response: Response<ArrayList<Training>>) {
@@ -154,7 +156,6 @@ class TrainingsFragment : Fragment() {
             }))
 
             recycler.adapter = adapter
-
 
     }
 

@@ -131,7 +131,7 @@ class NavigationActivity : AppCompatActivity()  {
 
          val header: View = nav_view.getHeaderView(0)
          val fullName = preferences.getString("name" , "") + " " + preferences.getString("surname" , "")
-         val urlPhoto = "http://64.225.72.59/img/"+preferences.getString("photo" , "")
+         val urlPhoto = "http://192.168.1.110/gym/public/img/"+preferences.getString("photo" , "")
          header.textViewHeaderName.text = fullName
 
          Picasso.get()

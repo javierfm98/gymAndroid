@@ -4,6 +4,11 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/android/gym/app/src/main/res/drawable/app_logo.xml" value="0.38425925925925924" />
+        <entry key="..\:/android/gym/app/src/main/res/drawable/border_edit_text.xml" value="0.4203125" />
+        <entry key="..\:/android/gym/app/src/main/res/drawable/border_radius.xml" value="0.4203125" />
+        <entry key="..\:/android/gym/app/src/main/res/drawable/border_radius_subscriptions.xml" value="0.4203125" />
+        <entry key="..\:/android/gym/app/src/main/res/drawable/border_radius_subscriptions_red.xml" value="0.4203125" />
+        <entry key="..\:/android/gym/app/src/main/res/drawable/border_radius_subscriptions_yellow.xml" value="0.4203125" />
         <entry key="..\:/android/gym/app/src/main/res/drawable/circle.xml" value="0.4203125" />
         <entry key="..\:/android/gym/app/src/main/res/drawable/ic_camera.xml" value="0.37777777777777777" />
         <entry key="..\:/android/gym/app/src/main/res/drawable/icon_image.xml" value="0.37777777777777777" />
@@ -33,8 +38,9 @@
         <entry key="..\:/android/gym/app/src/main/res/layout/nav_header.xml" value="0.29393115942028986" />
         <entry key="..\:/android/gym/app/src/main/res/layout/recycler_reservation.xml" value="0.2753623188405797" />
         <entry key="..\:/android/gym/app/src/main/res/layout/recycler_stat.xml" value="0.264" />
-        <entry key="..\:/android/gym/app/src/main/res/layout/recycler_subscription.xml" value="0.19655521783181357" />
+        <entry key="..\:/android/gym/app/src/main/res/layout/recycler_subscription.xml" value="0.536" />
         <entry key="..\:/android/gym/app/src/main/res/layout/recycler_training.xml" value="0.2916666666666667" />
+        <entry key="..\:/android/gym/app/src/main/res/layout/recycler_training_load.xml" value="0.39266304347826086" />
         <entry key="..\:/android/gym/app/src/main/res/layout/recycler_user.xml" value="0.2635416666666667" />
         <entry key="..\:/android/gym/app/src/main/res/layout/toolbar.xml" value="0.3070652173913043" />
         <entry key="..\:/android/gym/app/src/main/res/menu/drawer_menu.xml" value="0.4041666666666667" />

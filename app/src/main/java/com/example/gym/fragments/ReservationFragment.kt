@@ -1,6 +1,7 @@
 package com.example.gym.fragments
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,9 +10,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gym.R
+import com.example.gym.activities.TrainingDetailsActivity
 import com.example.gym.adapters.ReservationAdapter
 import com.example.gym.adapters.TrainingAdapter
 import com.example.gym.io.ApiService
+import com.example.gym.listeners.RecyclerReservationListener
 import com.example.gym.listeners.RecyclerTrainingListener
 import com.example.gym.models.Training
 import com.example.gym.toast
@@ -34,6 +37,7 @@ class ReservationFragment : Fragment() {
     private lateinit var recycler: RecyclerView
     private lateinit var adapter: ReservationAdapter
     private val layoutManager by lazy { LinearLayoutManager(context) }
+    private lateinit var contextView: Context
 
     private val apiService: ApiService by lazy {
         ApiService.create()
@@ -48,8 +52,8 @@ class ReservationFragment : Fragment() {
         val rootView = inflater.inflate(R.layout.fragment_reservation, container, false)
 
         recycler = rootView.recyclerViewReservation as RecyclerView
+        contextView = rootView.context
         getReservation(rootView.context)
-
 
         return rootView
     }
@@ -83,12 +87,18 @@ class ReservationFragment : Fragment() {
     private fun setRecyclerView(reservations: ArrayList<Training>) {
         recycler.setHasFixedSize(true)
         recycler.layoutManager = layoutManager
-        adapter = (ReservationAdapter(reservations))
+
+        adapter = (ReservationAdapter(reservations, object :RecyclerReservationListener{
+            override fun onClick(training: Training, position: Int) {
+             //   activity?.toast("Ver!! ${training.id}")
+                val intent = Intent(contextView, TrainingDetailsActivity::class.java)
+                intent.putExtra("training_id" , training.id)
+                startActivity(intent)
+            }
+        }))
 
         recycler.adapter = adapter
     }
-
-
-
-
 }
+
+
