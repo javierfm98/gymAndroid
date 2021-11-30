@@ -14,9 +14,12 @@
         android:theme="@style/Theme.Gym"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".activities.PasswordActivity"
+            android:exported="true" />
+        <activity
             android:name=".activities.SplashActivity"
-            android:theme="@style/SplashTheme"
-            android:noHistory="true">
+            android:noHistory="true"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -36,8 +39,7 @@
             android:launchMode="singleInstance" />
         <activity
             android:name=".activities.MainActivity"
-            android:launchMode="singleInstance">
-        </activity>
+            android:launchMode="singleInstance"></activity>
     </application>
 
 </manifest>

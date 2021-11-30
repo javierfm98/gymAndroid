@@ -19,116 +19,124 @@
 
     </LinearLayout>
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/linearLayoutToolbar"
-        android:orientation="vertical"
-        android:padding="20dp">
+        android:layout_below="@+id/linearLayoutToolbar">
 
-
-        <ImageView
-            android:id="@+id/imageViewProfileEdit"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="20dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:contentDescription="Navigation header"
-            tools:srcCompat="@tools:sample/avatars" />
-
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textField"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_marginBottom="20dp"
-            android:hint="Nombre">
+            android:orientation="vertical"
+            android:padding="20dp">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/textInputName"
+
+            <ImageView
+                android:id="@+id/imageViewProfileEdit"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="20dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:contentDescription="Navigation header"
+                tools:srcCompat="@tools:sample/avatars" />
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textField"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:text="Javier" />
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_marginBottom="20dp"
+                android:hint="Nombre">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/textInputName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="Javier" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textField2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_marginBottom="20dp"
-            android:hint="Apellido">
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/textInputSurname"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textField2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:text="Fernandez" />
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_marginBottom="20dp"
+                android:hint="Apellido">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/textInputSurname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="Fernandez" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textField3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_marginBottom="20dp"
-            android:hint="Nombre de usuario">
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/textInputUsername"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textField3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:text="javier" />
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_marginBottom="20dp"
+                android:hint="Nombre de usuario">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/textInputUsername"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="javier" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textField5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_marginBottom="20dp"
-            android:hint="Teléfono">
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/textInputPhone"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textField5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:text="123456789" />
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_marginBottom="20dp"
+                android:hint="Teléfono">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/textInputPhone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="123456789" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textField4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_marginBottom="20dp"
-            android:hint="Correo">
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/textInputEmail"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textField4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:text="javier@gmail.com" />
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_marginBottom="20dp"
+                android:hint="Correo">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/textInputEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="javier@gmail.com" />
 
-        <Button
-            android:id="@+id/buttonReservation"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:padding="5sp"
-            android:text="Cambiar contraseña"
-            android:textSize="10sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/buttonPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:padding="5sp"
+                android:text="Cambiar contraseña"
+                android:textSize="10sp" />
 
 
-    </LinearLayout>
+        </LinearLayout>
+
+    </ScrollView>
+
+
 
 
 </RelativeLayout>

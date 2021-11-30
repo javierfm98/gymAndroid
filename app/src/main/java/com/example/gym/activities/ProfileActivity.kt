@@ -3,6 +3,7 @@ package com.example.gym.activities
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.database.Cursor
 import android.net.Uri
@@ -72,8 +73,6 @@ class ProfileActivity : AppCompatActivity() {
     }
 
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
@@ -97,6 +96,11 @@ class ProfileActivity : AppCompatActivity() {
             //toast("Click Foto")
             selectPhotoGallery()
 
+        }
+
+        buttonPassword.setOnClickListener {
+            val intent = Intent(this, PasswordActivity::class.java)
+            startActivity(intent)
         }
     }
 
@@ -157,7 +161,9 @@ class ProfileActivity : AppCompatActivity() {
         when(item?.itemId){
             R.id.itemSave -> {
                 hideKeyboard(this)
-                uploadImage(stream!!,name)
+                if(stream != null){
+                    uploadImage(stream!!,name)
+                }
                 saveProfile()
                 window.decorView.clearFocus()
             }

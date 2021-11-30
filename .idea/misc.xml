@@ -18,6 +18,7 @@
         <entry key="..\:/android/gym/app/src/main/res/drawable/splashscreen.xml" value="0.38425925925925924" />
         <entry key="..\:/android/gym/app/src/main/res/layout/activity_main.xml" value="0.3052536231884058" />
         <entry key="..\:/android/gym/app/src/main/res/layout/activity_navigation.xml" value="0.39855072463768115" />
+        <entry key="..\:/android/gym/app/src/main/res/layout/activity_password.xml" value="0.4041666666666667" />
         <entry key="..\:/android/gym/app/src/main/res/layout/activity_profile.xml" value="0.19655521783181357" />
         <entry key="..\:/android/gym/app/src/main/res/layout/activity_splash.xml" value="0.4041666666666667" />
         <entry key="..\:/android/gym/app/src/main/res/layout/activity_tab.xml" value="0.3211050724637681" />
@@ -44,6 +45,7 @@
         <entry key="..\:/android/gym/app/src/main/res/layout/recycler_user.xml" value="0.2635416666666667" />
         <entry key="..\:/android/gym/app/src/main/res/layout/toolbar.xml" value="0.3070652173913043" />
         <entry key="..\:/android/gym/app/src/main/res/menu/drawer_menu.xml" value="0.4041666666666667" />
+        <entry key="..\:/android/gym/app/src/main/res/menu/toolbar_menu.xml" value="0.4041666666666667" />
       </map>
     </option>
   </component>
