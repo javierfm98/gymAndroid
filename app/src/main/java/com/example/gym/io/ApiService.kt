@@ -100,7 +100,11 @@ interface ApiService {
                     @Part photo: MultipartBody.Part,
                     @Query("name") name:String): Call<Void>
 
-
+    @POST("users/password")
+    fun updatePassword(@Header("Authorization") authHeader: String,
+                      @Query("current_password") currentPassword: String,
+                      @Query("new_password") newPassword: String,
+                      @Query("confirm_password") confirmPassword: String): Call<PasswordResponse>
 
 
     companion object Factory{
