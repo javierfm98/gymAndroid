@@ -132,6 +132,7 @@ class ChartFragment : Fragment() {
         addEntries(entriesGoalWeight, dataGoalWeight,0)
         addEntries(entriesGoalBodyFat, dataGoalBodyFat, 0)
 
+
         addEntries(entriesWeight, dataWeight , pointStartWeight)
         addEntries(entriesBodyFat, dataBodyFat, pointStartBodyFat)
 
@@ -141,19 +142,19 @@ class ChartFragment : Fragment() {
         val lineDataSetWeight = LineDataSet(entriesWeight, "Peso")
         val lineDataSetBodyFat = LineDataSet(entriesBodyFat, "% Grasa")
 
-        styleLineGoals(lineDataSetGoalWeight, Color.BLUE)
-        styleLineGoals(lineDataSetGoalBodyFat, Color.RED)
+        styleLineGoals(lineDataSetGoalWeight, Color.parseColor("#7cb5ec"))
+        styleLineGoals(lineDataSetGoalBodyFat, Color.parseColor("#434348"))
 
         if(dataWeight.size > 1){
-            styleLineBasic(lineDataSetWeight, Color.GREEN)
+            styleLineBasic(lineDataSetWeight, Color.parseColor("#90ed7d"))
         }else{
-            styleLineOnePoint(lineDataSetWeight, Color.GREEN)
+            styleLineOnePoint(lineDataSetWeight, Color.parseColor("#90ed7d"))
         }
 
         if(dataBodyFat.size > 1){
-            styleLineBasic(lineDataSetBodyFat, Color.MAGENTA)
+            styleLineBasic(lineDataSetBodyFat, Color.parseColor("#f7a35c"))
         }else{
-            styleLineOnePoint(lineDataSetBodyFat, Color.MAGENTA)
+            styleLineOnePoint(lineDataSetBodyFat, Color.parseColor("#f7a35c"))
         }
 
 
