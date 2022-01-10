@@ -135,7 +135,7 @@ class ProfileActivity : AppCompatActivity() {
         val phone = preferences.getString("phone" , "")
         val username = preferences.getString("username" , "")
         val email = preferences.getString("email" , "")
-        val urlPhoto = "http://192.168.1.110/gym/public/img/"+preferences.getString("photo" , "")
+        val urlPhoto = "http://90.69.39.12/gym/public/img/"+preferences.getString("photo" , "")
 
         textInputName.setText(name)
         textInputSurname.setText(surname)

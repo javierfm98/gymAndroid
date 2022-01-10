@@ -23,7 +23,7 @@ class UserAdapter (private val users: ArrayList<User>): RecyclerView.Adapter<Use
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         fun bind(user: User) = with(itemView){
             val fullName = user.name + " " + user.surname
-            val urlPhoto = "http://192.168.1.110/gym/public/img/"+user.photo.route
+            val urlPhoto = "http://90.69.39.12/gym/public/img/"+user.photo.route
 
             textViewFullName.text = fullName
 
