@@ -117,6 +117,7 @@ class MenuFragment : Fragment()  {
         editor.putString("username" , user.username)
         editor.putString("email" , user.email)
         editor.putString("photo" , user.photo.route)
+        editor.putInt("paymentStatus" , user.paymentStatus)
         editor.apply()
 
         (activity as NavigationActivity).changeNavHeaderData()
@@ -160,6 +161,7 @@ class MenuFragment : Fragment()  {
         editor.putString("username" , "")
         editor.putString("email" , "")
         editor.putString("photo" , "")
+        editor.putInt("paymentStatus" , -1)
         editor.apply()
     }
 

@@ -100,6 +100,7 @@ class MainActivity : AppCompatActivity() {
         editor.putString("username" , user.username)
         editor.putString("email" , user.email)
         editor.putString("photo" , user.photo.route)
+        editor.putInt("paymentStatus" , user.paymentStatus)
         editor.apply()
     }
 

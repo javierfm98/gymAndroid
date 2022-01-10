@@ -212,6 +212,7 @@ class ProfileActivity : AppCompatActivity() {
         editor.putString("phone" , user.phone)
         editor.putString("username" , user.username)
         editor.putString("email" , user.email)
+        editor.putInt("paymentStatus" , user.paymentStatus)
        // editor.putString("photo" , user.photo.route)
         editor.apply()
     }

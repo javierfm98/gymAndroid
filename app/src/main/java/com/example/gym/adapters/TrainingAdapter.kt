@@ -67,7 +67,7 @@ class TrainingAdapter(private val trainings: ArrayList<Training>, private  val l
                             if(checkResponse.success){
                                updateTraining(checkResponse.training,itemView,training,listener)
                             }else{
-                               setItemsView(itemView,training,listener)
+                               setItemsView(itemView,checkResponse.status,training,listener)
                             }
                         }
                     }
@@ -82,42 +82,48 @@ class TrainingAdapter(private val trainings: ArrayList<Training>, private  val l
         }
 
          fun updateTraining(trainingCheck: Training , itemView: View,training: Training,listener: RecyclerTrainingListener) {
-             if(training.id == trainingCheck.id){
 
-                 val totalClient = trainingCheck.enroll.toString() + "/" + training.capacity.toString()
-                 itemView.buttonReservation.text = "RESERVADO"
-                 itemView.buttonReservation.setBackgroundColor(Color.rgb(0, 255, 0))
-                 itemView.textViewHour.text = training.trainingTime
-                 itemView.textViewEnroll.text = totalClient
 
-                 itemView.buttonReservation.setOnClickListener {
-                     listener.onRemoveReservation(training,adapterPosition)
+                 if(training.id == trainingCheck.id){
+
+                     val totalClient = trainingCheck.enroll.toString() + "/" + training.capacity.toString()
+                     itemView.buttonReservation.text = "RESERVADO"
+                     itemView.buttonReservation.setBackgroundColor(Color.rgb(0, 255, 0))
+                     itemView.textViewHour.text = training.trainingTime
+                     itemView.textViewEnroll.text = totalClient
+
+                     itemView.buttonReservation.setOnClickListener {
+                         listener.onRemoveReservation(training,adapterPosition)
+                     }
+                 }else{
+                     val totalClient = training.enroll.toString() + "/" + training.capacity.toString()
+                     itemView.textViewHour.text = training.trainingTime
+                     itemView.textViewEnroll.text = totalClient
+                     itemView.buttonReservation.text = "RESERVAR0"
+                     itemView.buttonReservation.setBackgroundColor(Color.rgb(0, 184, 255))
+
+                     itemView.buttonReservation.setOnClickListener {
+                         listener.onNoMoreReservation(training,adapterPosition)
+                     }
+
                  }
-
-
-             }else{
-                 val totalClient = training.enroll.toString() + "/" + training.capacity.toString()
-                 itemView.textViewHour.text = training.trainingTime
-                 itemView.textViewEnroll.text = totalClient
-                 itemView.buttonReservation.text = "RESERVAR"
-                 itemView.buttonReservation.setBackgroundColor(Color.rgb(0, 184, 255))
-
-                 itemView.buttonReservation.setOnClickListener {
-                     listener.onNoMoreReservation(training,adapterPosition)
-                 }
-
-             }
-
         }
 
-        fun setItemsView(itemView: View,training: Training,listener: RecyclerTrainingListener){
+        fun setItemsView(itemView: View, paymentStatus: Boolean , training: Training,listener: RecyclerTrainingListener){
+
+
             val totalClient = training.enroll.toString() + "/" + training.capacity.toString()
             itemView.textViewHour.text = training.trainingTime
             itemView.textViewEnroll.text = totalClient
             itemView.buttonReservation.text = "RESERVAR"
             itemView.buttonReservation.setBackgroundColor(Color.rgb(0, 184, 255))
-            itemView.buttonReservation.isEnabled = true
-            itemView.buttonReservation.isClickable = true
+            if(paymentStatus){
+                itemView.buttonReservation.isEnabled = true
+                itemView.buttonReservation.isClickable = true
+            }else{
+                itemView.buttonReservation.isEnabled = false
+                itemView.buttonReservation.isClickable = false
+            }
 
             itemView.buttonReservation.setOnClickListener {
                 listener.onReservation(training,adapterPosition)

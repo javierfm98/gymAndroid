@@ -4,4 +4,5 @@ import com.example.gym.models.Training
 
 
 data class CheckResponse (val success: Boolean,
-                          val training: Training)
+                          val training: Training,
+                          val status: Boolean)

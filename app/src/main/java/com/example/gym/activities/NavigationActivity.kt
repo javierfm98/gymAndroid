@@ -123,6 +123,7 @@ class NavigationActivity : AppCompatActivity()  {
         editor.putString("username" , "")
         editor.putString("email" , "")
         editor.putString("photo" , "")
+        editor.putInt("paymentStatus", -1)
         editor.apply()
     }
 

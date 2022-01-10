@@ -67,7 +67,7 @@ class ChartFragment : Fragment() {
                 if(response.isSuccessful){
                     val data = response.body()
                     data?.let {
-                        axisDate = data.countMouths
+                        axisDate = data.countMonths
                         dataGoalWeight = data.goalWeightCount
                         dataGoalBodyFat = data.goalBodyFatCount
                         dataWeight = data.arrayWeight

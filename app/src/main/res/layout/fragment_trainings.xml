@@ -20,10 +20,22 @@
             app:textColorSelected="@color/white" />
 
         <TextView
-            android:id="@+id/textViewEmpty"
+            android:id="@+id/textViewSubscription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/calendarView"
+            android:gravity="center"
+            android:layout_marginTop="8dp"
+            android:textColor="#721c24"
+            tools:text="No puede reservar ya que ha vencido su cuota" />
+
+
+
+        <TextView
+            android:id="@+id/textViewEmpty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewSubscription"
             android:gravity="center"
             android:layout_marginTop="8dp"
             tools:text="No hay entrenos disponibles" />

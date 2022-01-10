@@ -10,4 +10,5 @@ data class User (
     val username: String,
     val email: String,
     @SerializedName("role_id") val roleId : Int,
-    val photo : Photo)
+    val photo : Photo,
+    @SerializedName("payment_status") val paymentStatus : Int)

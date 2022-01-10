@@ -1,7 +1,7 @@
 package com.example.gym.io.response
 
 data class ChartResponse(
-    val countMouths: ArrayList<String>,
+    val countMonths: ArrayList<String>,
     val goalWeightCount: ArrayList<Float>,
     val goalBodyFatCount: ArrayList<Float>,
     val arrayWeight: ArrayList<Float>,

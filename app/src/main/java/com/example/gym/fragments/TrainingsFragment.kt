@@ -39,6 +39,7 @@ class TrainingsFragment : Fragment() {
     private val layoutManager by lazy { LinearLayoutManager(context) }
     private  var jwt: String? = ""
     private lateinit var contextView: Context
+    private lateinit var rootView: View
 
 
 
@@ -53,7 +54,7 @@ class TrainingsFragment : Fragment() {
 
 
         // Inflate the layout for this fragment
-        val rootView = inflater.inflate(R.layout.fragment_trainings, container, false)
+        rootView = inflater.inflate(R.layout.fragment_trainings, container, false)
         contextView = rootView.context
 
         recycler = rootView.recyclerView as RecyclerView
@@ -66,9 +67,11 @@ class TrainingsFragment : Fragment() {
         val formatDate = SimpleDateFormat("yyy-MM-dd" , Locale.ENGLISH)
         val dateString: String = formatDate.format(date)
 
+        checkSubscription()
         getTrainings(dateString)
-      //  checkReservations(dateString)
+        //checkReservations(dateString)
         setHorizontalCalendar(rootView)
+
 
         return rootView
     }
@@ -222,7 +225,16 @@ class TrainingsFragment : Fragment() {
         } )
     }
 
+    private fun checkSubscription() {
 
+        val preferences = activity?.getSharedPreferences("userInfo" , Context.MODE_PRIVATE)
+        val paymentStatus = preferences?.getInt("paymentStatus" , 0)
 
-
+        if( paymentStatus == 0){
+            rootView.textViewSubscription.text = "No puede reservar ya que ha vencido su cuota"
+        }else{
+            rootView.textViewSubscription.text = ""
+            rootView.textViewSubscription.visibility = View.GONE
+        }
+    }
 }
